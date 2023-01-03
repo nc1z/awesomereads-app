@@ -70,7 +70,15 @@
 
 ### Built With
 
-- TBD
+- React
+- TypeScript
+- Spring Boot
+- Spring Data REST
+- MySQL
+- Java
+- Client deployment with Netlify
+- Server deployment with AWS (TBD)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
