@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/Nav/Navbar";
+import NavigationMenu from "./components/Nav/NavigationMenu";
 import Home from "./routes/Home";
 import Login from "./routes/Login";
 import Signup from "./routes/Signup";
@@ -16,7 +16,7 @@ const AppContainer = styled(Container)`
 function App() {
   return (
     <AppContainer>
-      <Navbar />
+      <NavigationMenu />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
