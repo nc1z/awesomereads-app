@@ -13,6 +13,13 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    @GetMapping("/secure/currentloans/count")
+    public int currentLoansCount() {
+        // TODO: Temp hardcoded email for testing, Replace this with extracted email
+        String userEmail = "testuser@email.com";
+        return bookService.currentLoansCount(userEmail);
+    }
+
     @GetMapping("/secure/ischeckedout/byuser")
     public Boolean checkoutBookByUser(@RequestParam Long bookId) {
         // TODO: Temp hardcoded email for testing, Replace this with extracted email
