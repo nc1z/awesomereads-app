@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class ExtractJWT {
 
-    public static String payloadJWTExtraction(String token) {
+    public static String payloadJWTExtraction(String token, String extraction) {
 
         // Remove "Bearer " from the String to get JWT
         token.replace("Bearer ", "");
@@ -25,7 +25,7 @@ public class ExtractJWT {
         // Loop through each entry until we find a key "sub"
         for (String entry : entries) {
             String[] keyValue = entry.split(":");
-            if (keyValue[0].equals("\"sub\"")) {
+            if (keyValue[0].equals(extraction)) {
 
                 // By default we want to remove the quotation on the sub and any weird symbols behind
                 // Then once cleaned, we store inside our hashmap
@@ -40,8 +40,8 @@ public class ExtractJWT {
             }
         }
 
-        if (map.containsKey("\"sub\"")) {
-            return map.get("\"sub\"");
+        if (map.containsKey(extraction)) {
+            return map.get(extraction);
         }
 
         return null;
