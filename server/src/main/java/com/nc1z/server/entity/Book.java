@@ -1,7 +1,8 @@
 package com.nc1z.server.entity;
 
-import jakarta.persistence.*;
 import lombok.Data;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "book")
