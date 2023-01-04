@@ -13,6 +13,13 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    @GetMapping("/secure/ischeckedout/byuser")
+    public Boolean checkoutBookByUser(@RequestParam Long bookId) {
+        // TODO: Temp hardcoded email for testing, Replace this with extracted email
+        String userEmail = "testuser@email.com";
+        return bookService.checkoutBookByUser(userEmail, bookId);
+    }
+
     @PutMapping("/secure/checkout")
     public Book checkoutBook(@RequestParam Long bookId) throws Exception {
         // TODO: Temp hardcoded email for testing, Replace this with extracted email
