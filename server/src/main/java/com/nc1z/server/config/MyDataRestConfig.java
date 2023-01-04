@@ -1,6 +1,7 @@
 package com.nc1z.server.config;
 
 import com.nc1z.server.entity.Book;
+import com.nc1z.server.entity.Review;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -21,8 +22,10 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
                 HttpMethod.PUT};
 
         configuration.exposeIdsFor(Book.class);
+        configuration.exposeIdsFor(Review.class);
 
         disableHttpMethods(Book.class, configuration, theUnsupportedActions);
+        disableHttpMethods(Review.class, configuration, theUnsupportedActions);
 
         // Configure CORS Mapping
         corsRegistry.addMapping(configuration.getBasePath() + "/**")
