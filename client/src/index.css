@@ -5,6 +5,8 @@ body {
   --main-black: #13100d;
   --main-gray: #241f1a;
   --main-orange: #ff6735;
+  --main-yellow: #ffd53b;
+  --main-red: #ff4f49;
 
   /* Global Styles */
   font-family: "Work Sans", sans-serif;
