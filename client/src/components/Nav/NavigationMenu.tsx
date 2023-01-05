@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 const NavMenu = styled(Navbar)`
   // border: 5px solid blue;
+  z-index: 999;
   width: 100%;
   background-color: var(--main-background);
   position: fixed;

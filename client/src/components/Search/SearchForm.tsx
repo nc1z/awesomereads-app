@@ -7,6 +7,7 @@ interface SearchFormProps {
 }
 
 const InputDiv = styled.div`
+  z-index: 999;
   display: flex;
   justify-content: center;
   align-items: center;
