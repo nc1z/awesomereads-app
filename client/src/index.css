@@ -59,3 +59,9 @@ button {
 .navlink:active {
   transform: scale(1.4);
 }
+
+@media (max-width: 480px) {
+  .current {
+    font-size: 1.5rem !important;
+  }
+}
