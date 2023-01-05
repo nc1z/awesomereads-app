@@ -38,11 +38,14 @@ button {
   cursor: pointer;
 }
 
+/* NavLink */
+
 .current {
   text-decoration: underline;
   text-decoration-color: var(--main-orange);
   text-decoration-thickness: 0.25rem;
   text-underline-offset: 0.5rem;
+  font-size: 3rem !important;
 }
 
 .navlink {
@@ -55,4 +58,10 @@ button {
 
 .navlink:active {
   transform: scale(1.4);
+}
+
+@media (max-width: 480px) {
+  .current {
+    font-size: 1.5rem !important;
+  }
 }
