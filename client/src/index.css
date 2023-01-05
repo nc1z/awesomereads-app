@@ -35,3 +35,22 @@ button {
   background-color: var(--main-orange);
   cursor: pointer;
 }
+
+.current {
+  text-decoration: underline;
+  text-decoration-color: var(--main-orange);
+  text-decoration-thickness: 0.25rem;
+  text-underline-offset: 0.5rem;
+}
+
+.navlink {
+  transition: transform 0.2s;
+}
+
+.navlink:hover {
+  transform: scale(1.25);
+}
+
+.navlink:active {
+  transform: scale(1.4);
+}
