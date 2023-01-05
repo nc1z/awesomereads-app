@@ -18,6 +18,12 @@ const NavMenu = styled(Navbar)`
       color: white;
     }
   }
+
+  @media (max-width: 480px) {
+    a {
+      font-size: 1.25rem;
+    }
+  }
 `;
 
 const NavbarCollapse = styled(Container)`
@@ -32,6 +38,10 @@ const NavLinkContainer = styled(Nav)`
   justify-content: center;
   align-items: center;
   gap: 2rem;
+
+  @media (max-width: 480px) {
+    flex-direction: row;
+  }
 `;
 
 const NavigationMenu = () => {
