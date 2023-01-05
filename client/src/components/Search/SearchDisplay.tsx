@@ -15,8 +15,18 @@ const SearchDiv = styled.div`
   align-items: center;
   gap: 2rem;
   width: 100%;
-  height: 100%;
-  border: 5px solid white;
+  margin-top: 10rem;
+  margin-bottom: 12rem;
+
+  @media (max-width: 480px) {
+    margin-top: 6rem;
+    margin-bottom: 8rem;
+  }
+`;
+
+const LoadingDiv = styled.div`
+  position: fixed;
+  top: 36%;
 `;
 
 const SearchDisplay = () => {
@@ -63,13 +73,13 @@ const SearchDisplay = () => {
 
   useEffect(() => {
     fetchBooks();
-  }, []);
+  }, [page]);
 
   if (isLoading) {
     return (
-      <div className="container m-4">
+      <LoadingDiv className="container m-4">
         <Loading />
-      </div>
+      </LoadingDiv>
     );
   }
 

@@ -6,6 +6,23 @@ interface SearchFormProps {
   setSearchText: React.Dispatch<React.SetStateAction<string>>;
 }
 
+const InputDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+  width: 100%;
+  background-color: var(--main-background);
+
+  @media (max-width: 480px) {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+`;
+
 const InputForm = styled(Form)`
   width: 60%;
 `;
@@ -38,19 +55,21 @@ const SearchForm = ({ setSearchText }: SearchFormProps) => {
   };
 
   return (
-    <InputForm onSubmit={(e: any) => handleSearch(e)}>
-      <InputGroup>
-        <Form.Control
-          onChange={(e) => setInputText(e.target.value)}
-          placeholder="Search by author or title"
-          aria-label="Search by author or title"
-          value={inputText}
-        />
-        <SearchButton variant="warning" type="submit">
-          Search
-        </SearchButton>
-      </InputGroup>
-    </InputForm>
+    <InputDiv>
+      <InputForm onSubmit={(e: any) => handleSearch(e)}>
+        <InputGroup>
+          <Form.Control
+            onChange={(e) => setInputText(e.target.value)}
+            placeholder="Search by author or title"
+            aria-label="Search by author or title"
+            value={inputText}
+          />
+          <SearchButton variant="warning" type="submit">
+            Search
+          </SearchButton>
+        </InputGroup>
+      </InputForm>
+    </InputDiv>
   );
 };
 

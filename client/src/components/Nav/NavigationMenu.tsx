@@ -4,11 +4,15 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const NavMenu = styled(Navbar)`
+  // border: 5px solid blue;
   width: 100%;
-  position: absolute;
+  background-color: var(--main-background);
+  position: fixed;
   right: 0;
   left: 0;
-  bottom: 10%;
+  bottom: 0;
+  padding-bottom: 6rem;
+  padding-top: 2rem;
   a {
     font-size: 2.5rem;
     font-weight: 700;
@@ -23,6 +27,8 @@ const NavMenu = styled(Navbar)`
     a {
       font-size: 1.25rem;
     }
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
   }
 `;
 
