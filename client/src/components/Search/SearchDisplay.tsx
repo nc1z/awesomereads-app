@@ -1,20 +1,37 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import BookModel from "../../models/BookModel";
 import ErrorDiv from "../Error/ErrorDiv";
 import Loading from "../Loading/Loading";
+import BooksDisplay from "./BooksDisplay";
+import BooksPagination from "./BooksPagination";
 import SearchForm from "./SearchForm";
+
+const SearchDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  height: 100%;
+  border: 5px solid white;
+`;
 
 const SearchDisplay = () => {
   const [books, setBooks] = useState<BookModel[]>([]);
   const [searchText, setSearchText] = useState("");
+  const [page, setPage] = useState("0");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const fetchBooks = async () => {
     try {
       setIsLoading(true);
-      const { data: response } = await axios.get("/api/books?page=0&size=5");
+      const { data: response } = await axios.get(
+        `/api/books?page=${page}&size=5`
+      );
 
       if (!response._embedded.books) {
         return setErrorMessage("No books found. Something went wrong.");
@@ -44,6 +61,10 @@ const SearchDisplay = () => {
     }
   };
 
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
   if (isLoading) {
     return (
       <div className="container m-4">
@@ -61,9 +82,11 @@ const SearchDisplay = () => {
   }
 
   return (
-    <>
+    <SearchDiv>
       <SearchForm setSearchText={setSearchText} />
-    </>
+      <BooksDisplay books={books} />
+      <BooksPagination setPage={setPage} />
+    </SearchDiv>
   );
 };
 
