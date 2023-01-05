@@ -33,6 +33,7 @@ const SearchDisplay = () => {
   const [books, setBooks] = useState<BookModel[]>([]);
   const [searchText, setSearchText] = useState("");
   const [page, setPage] = useState("0");
+  const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -62,6 +63,7 @@ const SearchDisplay = () => {
       });
 
       setBooks(booksArray);
+      setTotalPages(response.page.totalPages);
       setIsLoading(false);
       console.log(response);
     } catch (error: any) {
@@ -95,7 +97,7 @@ const SearchDisplay = () => {
     <SearchDiv>
       <SearchForm setSearchText={setSearchText} />
       <BooksDisplay books={books} />
-      <BooksPagination setPage={setPage} />
+      <BooksPagination setPage={setPage} totalPages={totalPages} />
     </SearchDiv>
   );
 };
