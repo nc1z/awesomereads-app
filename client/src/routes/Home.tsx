@@ -1,10 +1,10 @@
 import React from "react";
-import BookCarousel from "../components/Homepage/BookCarousel";
+import CarouselContainer from "../components/Homepage/CarouselContainer";
 
 const Home = () => {
   return (
     <div>
-      <BookCarousel />
+      <CarouselContainer />
     </div>
   );
 };
