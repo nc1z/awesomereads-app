@@ -97,7 +97,7 @@ const SearchDisplay = () => {
     <SearchDiv>
       <SearchForm setSearchText={setSearchText} />
       <BooksDisplay books={books} />
-      <BooksPagination setPage={setPage} totalPages={totalPages} />
+      <BooksPagination page={page} setPage={setPage} totalPages={totalPages} />
     </SearchDiv>
   );
 };

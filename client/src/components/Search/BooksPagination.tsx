@@ -1,6 +1,7 @@
 import React from "react";
 
 interface BooksPaginationProps {
+  page: string;
   setPage: React.Dispatch<React.SetStateAction<string>>;
   totalPages: number;
 }
