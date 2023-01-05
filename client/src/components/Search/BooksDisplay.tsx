@@ -47,7 +47,7 @@ const BooksDisplay = ({ books }: BooksDisplayProps) => {
   return (
     <BooksContainer>
       {books.map((book: BookModel) => (
-        <BookContainer>
+        <BookContainer key={book.title}>
           <BookImg src={book.img} />
           <BookDiv>
             <span>{book.author}</span>
