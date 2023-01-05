@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 
-const Carousel = () => {
+const BookCarousel = () => {
   const fetchBooks = async () => {
     try {
       const { data: response } = await axios.get("/api/books");
@@ -13,4 +13,4 @@ const Carousel = () => {
   return <div onClick={fetchBooks}>Carousel</div>;
 };
 
-export default Carousel;
+export default BookCarousel;
