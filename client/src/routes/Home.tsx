@@ -3,7 +3,7 @@ import styled from "styled-components";
 import CarouselContainer from "../components/Homepage/CarouselContainer";
 
 const HomeContainer = styled.div`
-  border: 5px solid red;
+  // border: 5px solid red;
   position: absolute;
   top: 0;
   right: 0;
