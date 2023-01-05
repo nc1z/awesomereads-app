@@ -5,6 +5,7 @@ import styled from "styled-components";
 const LoadingBar = styled(ProgressBar)`
   background: var(--main-white) !important;
   max-width: 30vw;
+  margin: 0 auto;
 `;
 
 const Loading = () => {

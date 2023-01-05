@@ -4,6 +4,9 @@ import CarouselContainer from "../components/Homepage/CarouselContainer";
 
 const HomeContainer = styled.div`
   // border: 5px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
   right: 0;
