@@ -4,15 +4,13 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const NavMenu = styled(Navbar)`
-  // border: 10px solid white;
-
   width: 100%;
   position: absolute;
   right: 0;
   left: 0;
   bottom: 10%;
   a {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: var(--main-white);
 
@@ -20,11 +18,15 @@ const NavMenu = styled(Navbar)`
       color: white;
     }
   }
+
+  @media (max-width: 480px) {
+    a {
+      font-size: 1.25rem;
+    }
+  }
 `;
 
 const NavbarCollapse = styled(Container)`
-  // border: 5px solid orange;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,34 +34,43 @@ const NavbarCollapse = styled(Container)`
 `;
 
 const NavLinkContainer = styled(Nav)`
-  // border: 5px solid red;
-
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 2rem;
-`;
-
-const NavigationLinks = styled(NavLink)`
-  transition: transform 0.2s;
-  &:hover {
-    transform: scale(1.25);
-  }
-  &:active {
-    transform: scale(1.4);
-  }
 `;
 
 const NavigationMenu = () => {
   return (
     <NavMenu expand="lg">
       <Container>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <NavbarCollapse id="basic-navbar-nav">
           <NavLinkContainer>
-            <NavigationLinks to="/">Home</NavigationLinks>
-            <NavigationLinks to="/search">Search</NavigationLinks>
-            <NavigationLinks to="/login">Login</NavigationLinks>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "current navlink" : "navlink"
+              }
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/search"
+              className={({ isActive }) =>
+                isActive ? "current navlink" : "navlink"
+              }
+            >
+              Search
+            </NavLink>
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                isActive ? "current navlink" : "navlink"
+              }
+            >
+              Login
+            </NavLink>
           </NavLinkContainer>
         </NavbarCollapse>
       </Container>

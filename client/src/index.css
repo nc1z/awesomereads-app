@@ -5,6 +5,8 @@ body {
   --main-black: #13100d;
   --main-gray: #241f1a;
   --main-orange: #ff6735;
+  --main-yellow: #ffd53b;
+  --main-red: #ff4f49;
 
   /* Global Styles */
   font-family: "Work Sans", sans-serif;
@@ -34,4 +36,23 @@ button {
   font-family: inherit;
   background-color: var(--main-orange);
   cursor: pointer;
+}
+
+.current {
+  text-decoration: underline;
+  text-decoration-color: var(--main-orange);
+  text-decoration-thickness: 0.25rem;
+  text-underline-offset: 0.5rem;
+}
+
+.navlink {
+  transition: transform 0.2s;
+}
+
+.navlink:hover {
+  transform: scale(1.25);
+}
+
+.navlink:active {
+  transform: scale(1.4);
 }

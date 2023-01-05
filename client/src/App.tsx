@@ -8,7 +8,7 @@ import Signup from "./routes/Signup";
 import styled from "styled-components";
 
 const AppContainer = styled(Container)`
-  border: 10px solid white;
+  // border: 10px solid white;
   height: 100vh;
   position relative;
 `;
