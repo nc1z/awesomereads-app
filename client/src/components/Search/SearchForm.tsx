@@ -15,6 +15,7 @@ const SearchButton = styled(Button)`
   color: var(--main-white);
   font-weight: 600;
   border: none;
+  font-size: 1.3rem;
 
   &:hover {
     color: var(--main-white) !important;
