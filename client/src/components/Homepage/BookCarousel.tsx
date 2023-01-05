@@ -24,9 +24,12 @@ const CarouselItemDiv = styled.div`
   gap: 2rem;
   justify-content: center;
   align-items: center;
+  height: 60vh;
+
   @media (max-width: 480px) {
     flex-direction: column;
     gap: 1rem;
+    height: 70vh;
   }
 `;
 
