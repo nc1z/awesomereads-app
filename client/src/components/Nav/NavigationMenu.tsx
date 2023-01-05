@@ -35,13 +35,10 @@ const NavbarCollapse = styled(Container)`
 
 const NavLinkContainer = styled(Nav)`
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 2rem;
-
-  @media (max-width: 480px) {
-    flex-direction: row;
-  }
 `;
 
 const NavigationMenu = () => {
