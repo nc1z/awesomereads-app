@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import BookModel from "../../models/BookModel";
 import ErrorDiv from "../Error/ErrorDiv";
 import Loading from "../Loading/Loading";
+import SearchForm from "./SearchForm";
 
 const SearchDisplay = () => {
   const [books, setBooks] = useState<BookModel[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [searchText, setSearchText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const fetchBooks = async () => {
@@ -59,9 +61,14 @@ const SearchDisplay = () => {
 
   useEffect(() => {
     // fetchBooks();
-  }, []);
+    console.log(searchText);
+  }, [searchText]);
 
-  return <div>SearchDisplay</div>;
+  return (
+    <>
+      <SearchForm setSearchText={setSearchText} />
+    </>
+  );
 };
 
 export default SearchDisplay;
