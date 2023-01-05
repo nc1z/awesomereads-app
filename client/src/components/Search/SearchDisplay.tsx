@@ -32,7 +32,7 @@ const LoadingDiv = styled.div`
 const SearchDisplay = () => {
   const [books, setBooks] = useState<BookModel[]>([]);
   const [searchText, setSearchText] = useState("");
-  const [page, setPage] = useState("0");
+  const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -96,6 +96,7 @@ const SearchDisplay = () => {
   return (
     <SearchDiv>
       <SearchForm setSearchText={setSearchText} />
+      <BooksPagination page={page} setPage={setPage} totalPages={totalPages} />
       <BooksDisplay books={books} />
       <BooksPagination page={page} setPage={setPage} totalPages={totalPages} />
     </SearchDiv>
