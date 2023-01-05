@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import SearchDisplay from "../components/Search/SearchDisplay";
 
 const SearchContainer = styled.div`
   //   border: 10px solid white;
@@ -14,7 +15,11 @@ const SearchContainer = styled.div`
 `;
 
 const Search = () => {
-  return <SearchContainer>Search</SearchContainer>;
+  return (
+    <SearchContainer>
+      <SearchDisplay />
+    </SearchContainer>
+  );
 };
 
 export default Search;
