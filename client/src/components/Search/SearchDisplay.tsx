@@ -13,6 +13,7 @@ const SearchDisplay = () => {
 
   const fetchBooks = async () => {
     try {
+      setIsLoading(true);
       const { data: response } = await axios.get("/api/books?page=0&size=5");
 
       if (!response._embedded.books) {
@@ -58,11 +59,6 @@ const SearchDisplay = () => {
       </div>
     );
   }
-
-  useEffect(() => {
-    // fetchBooks();
-    console.log(searchText);
-  }, [searchText]);
 
   return (
     <>
