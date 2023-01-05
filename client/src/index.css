@@ -45,6 +45,7 @@ button {
   text-decoration-color: var(--main-orange);
   text-decoration-thickness: 0.25rem;
   text-underline-offset: 0.5rem;
+  font-size: 3rem !important;
 }
 
 .navlink {
