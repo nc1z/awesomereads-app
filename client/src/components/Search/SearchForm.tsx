@@ -61,8 +61,8 @@ const SearchForm = ({ setSearchText }: SearchFormProps) => {
         <InputGroup>
           <Form.Control
             onChange={(e) => setInputText(e.target.value)}
-            placeholder="Search by author or title"
-            aria-label="Search by author or title"
+            placeholder="Search by title"
+            aria-label="Search by title"
             value={inputText}
           />
           <SearchButton variant="warning" type="submit">
