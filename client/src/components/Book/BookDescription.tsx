@@ -3,7 +3,7 @@ import styled from "styled-components";
 import BookModel from "../../models/BookModel";
 
 interface BookDescriptionProps {
-  book: BookModel;
+  book: BookModel | undefined;
 }
 
 const BookDescriptionDiv = styled.div`
@@ -49,7 +49,7 @@ const BookDiv = styled.div`
 `;
 
 const BookDescription = ({ book }: BookDescriptionProps) => {
-  if (!book.title) {
+  if (!book?.title) {
     return <div>No Books Found</div>;
   }
 
