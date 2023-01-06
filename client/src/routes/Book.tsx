@@ -3,7 +3,7 @@ import styled from "styled-components";
 import BookPage from "../components/Book/BookPage";
 
 const BookRouteContainer = styled.div`
-  border: 5px solid red;
+  // border: 5px solid red;
   display: flex;
   justify-content: center;
   align-items: center;

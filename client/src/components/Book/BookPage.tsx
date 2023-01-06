@@ -11,7 +11,7 @@ import BookDescription from "./BookDescription";
 import BookReviews from "./BookReviews";
 
 const BookPageDiv = styled.div`
-  border: 5px solid white;
+  //   border: 5px solid white;
   display: flex;
   flex-direction: column;
   justify-content: center;
