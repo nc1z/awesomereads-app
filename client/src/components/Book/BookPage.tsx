@@ -31,8 +31,10 @@ const BookTopContainer = styled(Container)`
   border: 5px solid yellow;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: start;
   width: 100%;
+  gap: 2rem;
+  padding: 1rem;
 
   @media (max-width: 480px) {
     flex-direction: column;
@@ -114,6 +116,7 @@ const BookPage = () => {
         <BookDescription book={book} />
         <BookCheckout />
       </BookTopContainer>
+      <hr />
       <BookReviews />
     </BookPageDiv>
   );
