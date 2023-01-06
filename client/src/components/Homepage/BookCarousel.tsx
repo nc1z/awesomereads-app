@@ -91,7 +91,7 @@ const BookCarousel = ({ books }: BookCarouselProps) => {
               <h1>{book.title}.</h1>
               <p>{book.author}</p>
               <ReserveButton>
-                <Link to="/">Reserve</Link>
+                <Link to={`/book/${book.id}`}>Reserve</Link>
               </ReserveButton>
             </CaptionDiv>
           </CarouselItemDiv>
