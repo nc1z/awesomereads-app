@@ -11,6 +11,15 @@ const BookCheckoutDiv = styled.div`
   min-width: 25%;
 `;
 
+const ReserveButton = styled.button`
+  color: var(--main-white);
+  font-weight: 700;
+
+  &:hover {
+    background-color: var(--main-red);
+  }
+`;
+
 const BookCheckout = () => {
   return (
     <BookCheckoutDiv>
@@ -21,7 +30,7 @@ const BookCheckout = () => {
         <p>10 copies</p>
         <p>10 available</p>
       </div>
-      <button>Login</button>
+      <ReserveButton>Login</ReserveButton>
       <hr />
       <p>The number can change until transaction is completed</p>
       <p>Sign in to leave a review</p>
