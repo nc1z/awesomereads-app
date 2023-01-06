@@ -7,7 +7,7 @@ interface BookDescriptionProps {
 }
 
 const BookDescriptionDiv = styled.div`
-  border: 5px solid orange;
+  // border: 5px solid orange;
   display: flex;
   align-items: start;
   gap: 2rem;

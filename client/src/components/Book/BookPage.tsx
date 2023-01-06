@@ -16,7 +16,7 @@ const BookPageDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   width: 100%;
   margin-top: 2rem;
   margin-bottom: 12rem;
