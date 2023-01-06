@@ -9,6 +9,7 @@ interface BooksPaginationProps {
 }
 
 const PaginationContainer = styled(Pagination)`
+  z-index: 0;
   li {
     a {
       color: var(--main-black);
@@ -42,7 +43,7 @@ const BooksPagination = ({
   }, [totalPages]);
 
   return (
-    <PaginationContainer style={{ zIndex: "0" }}>
+    <PaginationContainer>
       <Pagination.First onClick={() => setPage(0)} />
       <Pagination.Prev onClick={() => page > 0 && setPage(page - 1)} />
       {items.map((item) => {
