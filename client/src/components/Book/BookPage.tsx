@@ -18,11 +18,11 @@ const BookPageDiv = styled.div`
   align-items: center;
   gap: 1.5rem;
   width: 100%;
-  margin-top: 10rem;
+  margin-top: 2rem;
   margin-bottom: 12rem;
 
   @media (max-width: 480px) {
-    margin-top: 6rem;
+    margin-top: 2rem;
     margin-bottom: 8rem;
   }
 `;
