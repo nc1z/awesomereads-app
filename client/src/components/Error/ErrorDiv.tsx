@@ -13,6 +13,7 @@ const ErrorContainer = styled.div`
   border-radius: 0.5rem;
   padding: 0.3rem;
   max-width: max-content;
+  margin: 0 auto;
 `;
 
 const ErrorDiv = ({ errorMessage }: ErrorProps) => {
