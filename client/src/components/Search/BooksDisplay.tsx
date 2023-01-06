@@ -86,7 +86,7 @@ const BooksDisplay = ({ books }: BooksDisplayProps) => {
             <span>{book.author}</span>
             <BookTitleHeader>
               {book.title}
-              <BookLink to="/">Learn more</BookLink>
+              <BookLink to={`/book/${book.id}`}>Learn more</BookLink>
             </BookTitleHeader>
             <p>{book.description}</p>
           </BookDiv>
