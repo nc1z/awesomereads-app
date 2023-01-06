@@ -18,7 +18,7 @@ const BookDescriptionDiv = styled.div`
 `;
 
 const BookImg = styled.img`
-  width: 25%;
+  width: 28%;
 
   @media (max-width: 480px) {
     width: 60vw;

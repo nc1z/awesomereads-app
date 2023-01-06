@@ -28,7 +28,7 @@ const BookPageDiv = styled.div`
 `;
 
 const BookTopContainer = styled(Container)`
-  border: 5px solid yellow;
+  //   border: 5px solid yellow;
   display: flex;
   justify-content: space-around;
   align-items: start;
@@ -116,7 +116,6 @@ const BookPage = () => {
         <BookDescription book={book} />
         <BookCheckout />
       </BookTopContainer>
-      <hr />
       <BookReviews />
     </BookPageDiv>
   );
