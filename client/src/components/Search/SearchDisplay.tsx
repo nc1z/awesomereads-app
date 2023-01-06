@@ -50,12 +50,18 @@ const SearchDisplay = () => {
   const fetchBooks = async () => {
     try {
       setIsLoading(true);
-      const { data: response } = await axios.get(
-        `/api/books?page=${page}&size=5`
-      );
+      const { data: response } = searchText
+        ? await axios.get(
+            `/api/books/search/findByTitleContaining?title=${searchText}&page=${page}&size=5`
+          )
+        : await axios.get(`/api/books?page=${page}&size=5`);
 
       if (!response._embedded.books) {
         return setErrorMessage("No books found. Something went wrong.");
+      }
+
+      if (page > response.page.totalPages) {
+        setPage(0);
       }
 
       const responseData = response._embedded.books;
@@ -85,7 +91,7 @@ const SearchDisplay = () => {
 
   useEffect(() => {
     fetchBooks();
-  }, [page]);
+  }, [page, searchText]);
 
   if (isLoading) {
     return (
