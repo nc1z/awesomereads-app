@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import BookModel from "../../models/BookModel";
@@ -10,6 +11,7 @@ import BookDescription from "./BookDescription";
 import BookReviews from "./BookReviews";
 
 const BookPageDiv = styled.div`
+  border: 5px solid white;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,6 +25,14 @@ const BookPageDiv = styled.div`
     margin-top: 6rem;
     margin-bottom: 8rem;
   }
+`;
+
+const BookTopContainer = styled(Container)`
+  border: 5px solid yellow;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
 `;
 
 const UtilsDiv = styled.div`
@@ -87,12 +97,11 @@ const BookPage = () => {
 
   return (
     <BookPageDiv>
-      <div>
+      <BookTopContainer>
         <BookDescription />
         <BookCheckout />
-      </div>
+      </BookTopContainer>
       <BookReviews />
-      {bookId}
     </BookPageDiv>
   );
 };
