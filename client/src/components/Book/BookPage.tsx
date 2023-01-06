@@ -114,7 +114,7 @@ const BookPage = () => {
     <BookPageDiv>
       <BookTopContainer>
         <BookDescription book={book} />
-        <BookCheckout />
+        <BookCheckout book={book} />
       </BookTopContainer>
       <BookReviews />
     </BookPageDiv>

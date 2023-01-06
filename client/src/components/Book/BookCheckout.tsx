@@ -1,5 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import BookModel from "../../models/BookModel";
+
+interface BookCheckoutProps {
+  book: BookModel | undefined;
+}
 
 const BookCheckoutDiv = styled.div`
   // border: 5px solid black;
@@ -11,6 +16,11 @@ const BookCheckoutDiv = styled.div`
   min-width: 25%;
 `;
 
+const AvailableDiv = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
 const ReserveButton = styled.button`
   color: var(--main-white);
   font-weight: 700;
@@ -20,16 +30,16 @@ const ReserveButton = styled.button`
   }
 `;
 
-const BookCheckout = () => {
+const BookCheckout = ({ book }: BookCheckoutProps) => {
   return (
     <BookCheckoutDiv>
       <p>x/5 books checked out</p>
       <hr />
       <h3>Available</h3>
-      <div>
-        <p>10 copies</p>
-        <p>10 available</p>
-      </div>
+      <AvailableDiv>
+        <p>{book?.copies} copies</p>
+        <p>{book?.copiesAvailable} available</p>
+      </AvailableDiv>
       <ReserveButton>Login</ReserveButton>
       <hr />
       <p>The number can change until transaction is completed</p>
