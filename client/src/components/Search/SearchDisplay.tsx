@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import BookModel from "../../models/BookModel";
+import PageDetailsModel from "../../models/PageDetailsModel";
 import ErrorDiv from "../Error/ErrorDiv";
 import Loading from "../Loading/Loading";
 import BooksDisplay from "./BooksDisplay";
@@ -13,7 +14,7 @@ const SearchDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
   width: 100%;
   margin-top: 10rem;
   margin-bottom: 12rem;
@@ -24,16 +25,25 @@ const SearchDiv = styled.div`
   }
 `;
 
-const LoadingDiv = styled.div`
+const UtilsDiv = styled.div`
   position: fixed;
   top: 36%;
+`;
+
+const PageDetailsSpan = styled.span`
+  font-size: 1rem;
 `;
 
 const SearchDisplay = () => {
   const [books, setBooks] = useState<BookModel[]>([]);
   const [searchText, setSearchText] = useState("");
   const [page, setPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+  const [pageDetails, setPageDetails] = useState<PageDetailsModel>({
+    number: 0,
+    size: 0,
+    totalElements: 0,
+    totalPages: 0,
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -63,7 +73,7 @@ const SearchDisplay = () => {
       });
 
       setBooks(booksArray);
-      setTotalPages(response.page.totalPages);
+      setPageDetails(response.page);
       setIsLoading(false);
       console.log(response);
     } catch (error: any) {
@@ -79,26 +89,41 @@ const SearchDisplay = () => {
 
   if (isLoading) {
     return (
-      <LoadingDiv className="container m-4">
+      <UtilsDiv className="container m-4">
         <Loading />
-      </LoadingDiv>
+      </UtilsDiv>
     );
   }
 
   if (errorMessage) {
     return (
-      <div className="container m-4">
+      <UtilsDiv className="container m-4">
         <ErrorDiv errorMessage={errorMessage} />
-      </div>
+      </UtilsDiv>
     );
   }
 
   return (
     <SearchDiv>
       <SearchForm setSearchText={setSearchText} />
-      <BooksPagination page={page} setPage={setPage} totalPages={totalPages} />
+      <div>
+        <BooksPagination
+          page={page}
+          setPage={setPage}
+          totalPages={pageDetails.totalPages}
+        />
+        <PageDetailsSpan>
+          Total results: {pageDetails.totalElements}
+        </PageDetailsSpan>
+      </div>
+      <hr style={{ width: "80vw" }}></hr>
       <BooksDisplay books={books} />
-      <BooksPagination page={page} setPage={setPage} totalPages={totalPages} />
+      <hr style={{ width: "80vw" }}></hr>
+      <BooksPagination
+        page={page}
+        setPage={setPage}
+        totalPages={pageDetails.totalPages}
+      />
     </SearchDiv>
   );
 };
