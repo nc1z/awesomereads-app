@@ -33,6 +33,10 @@ const BookTopContainer = styled(Container)`
   justify-content: space-around;
   align-items: center;
   width: 100%;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
 `;
 
 const UtilsDiv = styled.div`
@@ -41,7 +45,16 @@ const UtilsDiv = styled.div`
 `;
 
 const BookPage = () => {
-  const [book, setBook] = useState<BookModel>();
+  const [book, setBook] = useState<BookModel>({
+    id: 0,
+    title: "",
+    author: "",
+    description: "",
+    copies: 0,
+    copiesAvailable: 0,
+    category: "",
+    img: "",
+  });
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const { bookId } = useParams();
@@ -98,7 +111,7 @@ const BookPage = () => {
   return (
     <BookPageDiv>
       <BookTopContainer>
-        <BookDescription />
+        <BookDescription book={book} />
         <BookCheckout />
       </BookTopContainer>
       <BookReviews />
