@@ -1,5 +1,6 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import BookModel from "../../models/BookModel";
 
@@ -43,6 +44,38 @@ const BookImg = styled.img`
   }
 `;
 
+const BookLink = styled(Link)`
+  font-size: 12px;
+  color: var(--main-white);
+  background-color: var(--main-orange);
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.4em 1.2em;
+  font-family: inherit;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--main-white);
+    background-color: var(--main-red);
+  }
+  &:active {
+    color: var(--main-white);
+    background-color: var(--main-red);
+  }
+`;
+
+const BookTitleHeader = styled.h3`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: start;
+    gap: 0.5rem;
+  }
+`;
+
 const BooksDisplay = ({ books }: BooksDisplayProps) => {
   return (
     <BooksContainer>
@@ -51,7 +84,10 @@ const BooksDisplay = ({ books }: BooksDisplayProps) => {
           <BookImg src={book.img} />
           <BookDiv>
             <span>{book.author}</span>
-            <h3>{book.title}</h3>
+            <BookTitleHeader>
+              {book.title}
+              <BookLink to="/">Learn more</BookLink>
+            </BookTitleHeader>
             <p>{book.description}</p>
           </BookDiv>
         </BookContainer>
