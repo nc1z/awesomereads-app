@@ -66,7 +66,9 @@ const BooksPagination = ({
           </Pagination.Item>
         );
       })}
-      <Pagination.Next onClick={() => page < totalPages && setPage(page + 1)} />
+      <Pagination.Next
+        onClick={() => page < totalPages - 1 && setPage(page + 1)}
+      />
       <Pagination.Last onClick={() => setPage(totalPages - 1)} />
     </PaginationContainer>
   );
