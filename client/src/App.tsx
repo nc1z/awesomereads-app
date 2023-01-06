@@ -7,6 +7,7 @@ import Login from "./routes/Login";
 import Signup from "./routes/Signup";
 import styled from "styled-components";
 import Search from "./routes/Search";
+import Book from "./routes/Book";
 
 const AppContainer = styled(Container)`
   // border: 10px solid white;
@@ -23,6 +24,7 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/book" element={<Book />} />
       </Routes>
     </AppContainer>
   );
