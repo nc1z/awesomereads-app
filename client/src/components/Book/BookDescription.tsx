@@ -34,7 +34,6 @@ const BookDiv = styled.div`
   }
 
   span {
-    color: var(--main-yellow);
     font-weight: 500;
   }
 
