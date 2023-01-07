@@ -111,7 +111,9 @@ const BookReviews = ({
       <RatingDiv>
         Average Rating:
         <ReviewStars rating={averageReview} />
-        <span>{averageReview.toFixed(1)}</span>
+        <span>
+          {averageReview ? averageReview.toFixed(1) : "No Ratings Yet"}
+        </span>
       </RatingDiv>
       {reviews.map((review: ReviewModel) => (
         <ReviewsDiv key={review.id}>

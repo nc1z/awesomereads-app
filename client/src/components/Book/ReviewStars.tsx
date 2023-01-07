@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 interface ReviewStarsProps {
-  rating: number | undefined;
+  rating: number;
 }
 
 const StarsDiv = styled.div`
@@ -13,8 +13,8 @@ const StarsDiv = styled.div`
 `;
 
 const ReviewStars = ({ rating }: ReviewStarsProps) => {
-  if (rating == undefined) {
-    return <>-</>;
+  if (!rating) {
+    return <></>;
   }
   let fullStars = Math.floor(rating);
   let halfStars = rating % Math.floor(rating) ? 1 : 0;

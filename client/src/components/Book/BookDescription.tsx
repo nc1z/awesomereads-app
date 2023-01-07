@@ -69,7 +69,7 @@ const BookDescription = ({ book, rating }: BookDescriptionProps) => {
 
         <RatingDiv>
           <ReviewStars rating={rating} />
-          <span>{rating.toFixed(1)}</span>
+          <span>{rating ? rating.toFixed(1) : "No Ratings Yet"}</span>
         </RatingDiv>
 
         <p>{book.description}</p>
