@@ -28,7 +28,7 @@ const ReviewsDiv = styled.div`
   margin-bottom: 1rem;
 
   p {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 `;
 
@@ -47,11 +47,12 @@ const UserReviewDiv = styled.div`
   display: flex;
   gap: 1rem;
   background-color: var(--main-black);
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   padding: 0 1rem;
 
   @media (max-width: 480px) {
     flex-direction: column;
+    border-radius: 0.5rem;
     gap: 0rem;
   }
 `;
