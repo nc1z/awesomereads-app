@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import BookModel from "../../models/BookModel";
+import { useOktaAuth } from "@okta/okta-react";
 
 interface BookCheckoutProps {
   book: BookModel | undefined;
@@ -31,6 +32,8 @@ const ReserveButton = styled.button`
 `;
 
 const BookCheckout = ({ book }: BookCheckoutProps) => {
+  const { authState } = useOktaAuth();
+
   return (
     <BookCheckoutDiv>
       <p>x/5 books checked out</p>
@@ -40,7 +43,9 @@ const BookCheckout = ({ book }: BookCheckoutProps) => {
         <p>{book?.copies} copies</p>
         <p>{book?.copiesAvailable} available</p>
       </AvailableDiv>
-      <ReserveButton>Login</ReserveButton>
+      <ReserveButton>
+        {authState && authState.isAuthenticated ? "Checkout" : "Login"}
+      </ReserveButton>
       <hr />
       <p>The number can change until transaction is completed</p>
       <p>Sign in to leave a review</p>
