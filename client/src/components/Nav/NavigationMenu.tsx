@@ -2,6 +2,7 @@ import React from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { useOktaAuth } from "@okta/okta-react";
 
 const NavMenu = styled(Navbar)`
   // border: 5px solid blue;
@@ -49,6 +50,8 @@ const NavLinkContainer = styled(Nav)`
 `;
 
 const NavigationMenu = () => {
+  const { authState } = useOktaAuth();
+
   return (
     <NavMenu expand="lg">
       <Container>
@@ -76,7 +79,7 @@ const NavigationMenu = () => {
                 isActive ? "current navlink" : "navlink"
               }
             >
-              Login
+              {authState && authState.isAuthenticated ? "User" : "Login"}
             </NavLink>
           </NavLinkContainer>
         </NavbarCollapse>
