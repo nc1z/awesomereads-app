@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import BookModel from "../../models/BookModel";
+import ReviewStars from "./ReviewStars";
 
 interface BookDescriptionProps {
   book: BookModel | undefined;
+  rating: number;
 }
 
 const BookDescriptionDiv = styled.div`
@@ -43,11 +45,17 @@ const BookDiv = styled.div`
 
   span,
   p {
-    font-size: 16px;
+    font-size: 1rem;
   }
 `;
 
-const BookDescription = ({ book }: BookDescriptionProps) => {
+const RatingDiv = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const BookDescription = ({ book, rating }: BookDescriptionProps) => {
   if (!book?.title) {
     return <div>No Books Found</div>;
   }
@@ -57,7 +65,13 @@ const BookDescription = ({ book }: BookDescriptionProps) => {
       <BookImg src={book.img ? book.img : ""} />
       <BookDiv>
         <h3>{book.title}.</h3>
-        <span>{book.author}</span>
+        <span>by {book.author}</span>
+
+        <RatingDiv>
+          <ReviewStars rating={rating} />
+          <span>{rating ? rating.toFixed(1) : "No Ratings Yet"}</span>
+        </RatingDiv>
+
         <p>{book.description}</p>
       </BookDiv>
     </BookDescriptionDiv>

@@ -4,6 +4,7 @@ import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import BookModel from "../../models/BookModel";
+import ReviewModel from "../../models/ReviewModel";
 import ErrorDiv from "../Error/ErrorDiv";
 import Loading from "../Loading/Loading";
 import BookCheckout from "./BookCheckout";
@@ -47,18 +48,13 @@ const UtilsDiv = styled.div`
 `;
 
 const BookPage = () => {
-  const [book, setBook] = useState<BookModel>({
-    id: 0,
-    title: "",
-    author: "",
-    description: "",
-    copies: 0,
-    copiesAvailable: 0,
-    category: "",
-    img: "",
-  });
+  const [book, setBook] = useState<BookModel>();
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [reviews, setReviews] = useState<ReviewModel[]>([]);
+  const [averageReview, setAverageReview] = useState(0);
+  const [isLoadingReviews, setIsLoadingReviews] = useState(true);
+  const [reviewErrorMessage, setReviewErrorMessage] = useState("");
   const { bookId } = useParams();
 
   const fetchBooks = async () => {
@@ -90,8 +86,49 @@ const BookPage = () => {
     }
   };
 
+  const fetchReviews = async () => {
+    try {
+      const { data: response } = await axios.get(
+        `/api/reviews/search/findByBookId?bookId=${bookId}`
+      );
+
+      if (!response._embedded.reviews) {
+        return setErrorMessage("No reviews found. Something went wrong.");
+      }
+
+      const responseData = response._embedded.reviews;
+      const reviewsArray: ReviewModel[] = responseData.map((review: any) => {
+        return {
+          id: review.id,
+          userEmail: review.userEmail,
+          date: review.date,
+          rating: review.rating,
+          book_id: review.bookId,
+          reviewDescription: review.reviewDescription,
+        };
+      });
+
+      const totalRating = reviewsArray.reduce(
+        (total: number, review: ReviewModel) => total + Number(review.rating),
+        0
+      );
+
+      const averageRating = totalRating / reviewsArray.length;
+
+      setReviews(reviewsArray);
+      setAverageReview(averageRating);
+      setIsLoadingReviews(false);
+      console.log(response);
+    } catch (error: any) {
+      setIsLoadingReviews(false);
+      setReviewErrorMessage(error.message);
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
     fetchBooks();
+    fetchReviews();
   }, []);
 
   if (isLoading) {
@@ -113,10 +150,15 @@ const BookPage = () => {
   return (
     <BookPageDiv>
       <BookTopContainer>
-        <BookDescription book={book} />
+        <BookDescription book={book} rating={averageReview} />
         <BookCheckout book={book} />
       </BookTopContainer>
-      <BookReviews />
+      <BookReviews
+        reviews={reviews}
+        averageReview={averageReview}
+        isLoadingReviews={isLoadingReviews}
+        reviewErrorMessage={reviewErrorMessage}
+      />
     </BookPageDiv>
   );
 };
