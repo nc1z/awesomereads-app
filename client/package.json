@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@okta/okta-react": "^6.7.0",
+    "@okta/okta-signin-widget": "^7.2.0",
     "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
     "react": "^18.2.0",
