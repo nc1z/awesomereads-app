@@ -4,6 +4,7 @@ import BookModel from "../../models/BookModel";
 
 interface BookDescriptionProps {
   book: BookModel | undefined;
+  rating: number;
 }
 
 const BookDescriptionDiv = styled.div`
@@ -47,7 +48,7 @@ const BookDiv = styled.div`
   }
 `;
 
-const BookDescription = ({ book }: BookDescriptionProps) => {
+const BookDescription = ({ book, rating }: BookDescriptionProps) => {
   if (!book?.title) {
     return <div>No Books Found</div>;
   }
@@ -57,7 +58,8 @@ const BookDescription = ({ book }: BookDescriptionProps) => {
       <BookImg src={book.img ? book.img : ""} />
       <BookDiv>
         <h3>{book.title}.</h3>
-        <span>{book.author}</span>
+        <span>by {book.author}</span>
+        <span>Rating: {rating.toFixed(1)}</span>
         <p>{book.description}</p>
       </BookDiv>
     </BookDescriptionDiv>
