@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ReviewModel from "../../models/ReviewModel";
 import ErrorDiv from "../Error/ErrorDiv";
 import Loading from "../Loading/Loading";
+import ReviewStars from "./ReviewStars";
 
 interface BookReviewsProps {
   reviews: ReviewModel[];
@@ -17,25 +18,30 @@ const BookReviewsDiv = styled.div`
   flex-direction: column;
   gap: 1rem;
   width: 100%;
+
+  h3 {
+    font-weight: 700;
+  }
 `;
 
 const ReviewsDiv = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.8rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 1rem;
   margin-bottom: 1rem;
 
   p {
     font-size: 1.25rem;
+    padding: 0 1rem;
   }
 `;
 
 const ReviewsDetailsDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  font-size: 1.2rem;
+  font-size: 1rem;
 
   @media (max-width: 480px) {
     flex-direction: column;
@@ -53,12 +59,20 @@ const UserReviewDiv = styled.div`
   @media (max-width: 480px) {
     flex-direction: column;
     border-radius: 0.5rem;
+    padding: 0.5rem 0.8rem;
     gap: 0rem;
   }
 `;
 
 const DateDiv = styled.div`
   opacity: 60%;
+`;
+
+const RatingDiv = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
 `;
 
 const UtilsDiv = styled.div`
@@ -94,13 +108,17 @@ const BookReviews = ({
       <div>
         <h3>Community Reviews</h3>
       </div>
-      <div>Overall Rating: {averageReview.toFixed(1)}</div>
+      <RatingDiv>
+        Average Rating:
+        <ReviewStars rating={averageReview} />
+        <span>{averageReview.toFixed(1)}</span>
+      </RatingDiv>
       {reviews.map((review: ReviewModel) => (
         <ReviewsDiv key={review.id}>
           <ReviewsDetailsDiv>
             <UserReviewDiv>
               <span>{review.userEmail} rated it</span>
-              <span>{review.rating.toFixed(1)}</span>
+              <ReviewStars rating={averageReview} />
             </UserReviewDiv>
             <DateDiv>
               {new Date(review.date)

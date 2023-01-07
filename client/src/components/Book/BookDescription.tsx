@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import BookModel from "../../models/BookModel";
+import ReviewStars from "./ReviewStars";
 
 interface BookDescriptionProps {
   book: BookModel | undefined;
@@ -44,8 +45,14 @@ const BookDiv = styled.div`
 
   span,
   p {
-    font-size: 16px;
+    font-size: 1rem;
   }
+`;
+
+const RatingDiv = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 `;
 
 const BookDescription = ({ book, rating }: BookDescriptionProps) => {
@@ -59,7 +66,12 @@ const BookDescription = ({ book, rating }: BookDescriptionProps) => {
       <BookDiv>
         <h3>{book.title}.</h3>
         <span>by {book.author}</span>
-        <span>Rating: {rating.toFixed(1)}</span>
+
+        <RatingDiv>
+          <ReviewStars rating={rating} />
+          <span>{rating.toFixed(1)}</span>
+        </RatingDiv>
+
         <p>{book.description}</p>
       </BookDiv>
     </BookDescriptionDiv>
