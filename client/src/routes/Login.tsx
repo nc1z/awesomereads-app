@@ -1,4 +1,5 @@
 import { useOktaAuth } from "@okta/okta-react";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
@@ -35,14 +36,23 @@ const Login = () => {
     await oktaAuth.signOut();
   };
 
-  useEffect(() => {
+  const fetchUser = () => {
     if (!authState || !authState.isAuthenticated) {
       setUserInfo(null);
     } else {
       oktaAuth.getUser().then((info) => {
         setUserInfo(info);
       });
+
+      const token = authState.accessToken?.accessToken;
+      if (token) {
+        axios.defaults.headers.common["authorization"] = `Bearer ${token}`;
+      }
     }
+  };
+
+  useEffect(() => {
+    fetchUser();
   }, [authState, oktaAuth]);
 
   if (!authState) {
