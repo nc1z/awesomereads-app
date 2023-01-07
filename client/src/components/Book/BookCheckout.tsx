@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import BookModel from "../../models/BookModel";
 import { useOktaAuth } from "@okta/okta-react";
+import { useNavigate } from "react-router-dom";
 
 interface BookCheckoutProps {
   book: BookModel | undefined;
@@ -33,6 +34,14 @@ const ReserveButton = styled.button`
 
 const BookCheckout = ({ book }: BookCheckoutProps) => {
   const { authState } = useOktaAuth();
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    if (!authState || !authState.isAuthenticated) {
+      navigate("/login");
+    }
+    // TODO: Checkout logic
+  };
 
   return (
     <BookCheckoutDiv>
@@ -43,7 +52,7 @@ const BookCheckout = ({ book }: BookCheckoutProps) => {
         <p>{book?.copies} copies</p>
         <p>{book?.copiesAvailable} available</p>
       </AvailableDiv>
-      <ReserveButton>
+      <ReserveButton onClick={handleCheckout}>
         {authState && authState.isAuthenticated ? "Checkout" : "Login"}
       </ReserveButton>
       <hr />
