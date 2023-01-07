@@ -1,11 +1,16 @@
-import React from "react";
+import { useOktaAuth } from "@okta/okta-react";
+import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import styled from "styled-components";
+import Loading from "../components/Loading/Loading";
 
 const LoginContainer = styled.div`
   //   border: 10px solid white;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
   position: absolute;
   top: 0;
   right: 0;
@@ -13,8 +18,76 @@ const LoginContainer = styled.div`
   bottom: 20%;
 `;
 
+const UtilsDiv = styled.div`
+  position: fixed;
+  top: 36%;
+`;
+
 const Login = () => {
-  return <LoginContainer>Login</LoginContainer>;
+  const { authState, oktaAuth } = useOktaAuth();
+  const [userInfo, setUserInfo] = useState<any>();
+
+  const handleLogin = async () => {
+    await oktaAuth.signInWithRedirect();
+  };
+
+  const handleLogout = async () => {
+    await oktaAuth.signOut();
+  };
+
+  useEffect(() => {
+    if (!authState || !authState.isAuthenticated) {
+      setUserInfo(null);
+    } else {
+      oktaAuth.getUser().then((info) => {
+        setUserInfo(info);
+      });
+    }
+  }, [authState, oktaAuth]);
+
+  if (!authState) {
+    return (
+      <UtilsDiv className="container m-4">
+        <Loading />
+      </UtilsDiv>
+    );
+  }
+
+  // if (authState.isAuthenticated && userInfo) {
+  //   console.log("retrieved userinfo: ");
+  //   console.log(userInfo);
+  //   console.log("Logged in AuthState: ");
+  //   console.log(authState);
+  // } else {
+  //   console.log("No userinfo: ");
+  //   console.log(userInfo);
+  // }
+
+  if (!authState.isAuthenticated) {
+    return (
+      <LoginContainer>
+        <Button onClick={handleLogin}>Login</Button>
+      </LoginContainer>
+    );
+  }
+
+  if (authState.isAuthenticated && !userInfo) {
+    return (
+      <LoginContainer>
+        <div>Loading user information...</div>
+        <Button onClick={handleLogout}>Sign out</Button>
+      </LoginContainer>
+    );
+  }
+
+  return (
+    <LoginContainer>
+      <div>Email: {userInfo.email}</div>
+      <div>Name: {userInfo.name}</div>
+      <div>Last Logged in: {userInfo.headers.date}</div>
+      <Button onClick={handleLogout}>Sign out</Button>
+    </LoginContainer>
+  );
 };
 
 export default Login;
