@@ -27,12 +27,15 @@ const UtilsDiv = styled.div`
 const Login = () => {
   const { authState, oktaAuth } = useOktaAuth();
   const [userInfo, setUserInfo] = useState<any>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
+    setIsLoading(true);
     await oktaAuth.signInWithRedirect();
   };
 
   const handleLogout = async () => {
+    setIsLoading(true);
     await oktaAuth.signOut();
   };
 
@@ -76,7 +79,9 @@ const Login = () => {
   if (!authState.isAuthenticated) {
     return (
       <LoginContainer>
-        <Button onClick={handleLogin}>Login</Button>
+        <Button onClick={handleLogin} disabled={isLoading && true}>
+          Login
+        </Button>
       </LoginContainer>
     );
   }
@@ -85,7 +90,9 @@ const Login = () => {
     return (
       <LoginContainer>
         <div>Loading user information...</div>
-        <Button onClick={handleLogout}>Sign out</Button>
+        <Button onClick={handleLogout} disabled={isLoading && true}>
+          Sign out
+        </Button>
       </LoginContainer>
     );
   }
@@ -95,7 +102,9 @@ const Login = () => {
       <div>Email: {userInfo.email}</div>
       <div>Name: {userInfo.name}</div>
       <div>Last Logged in: {userInfo.headers.date}</div>
-      <Button onClick={handleLogout}>Sign out</Button>
+      <Button onClick={handleLogout} disabled={isLoading && true}>
+        Sign out
+      </Button>
     </LoginContainer>
   );
 };
