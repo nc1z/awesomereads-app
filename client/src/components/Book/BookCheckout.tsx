@@ -8,6 +8,8 @@ import axios from "axios";
 
 interface BookCheckoutProps {
   book: BookModel | undefined;
+  isReviewSubmitted: boolean;
+  setIsReviewSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
   isCheckedOut: boolean;
   setIsCheckedOut: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -56,6 +58,8 @@ const CheckOutSuccess = styled.p`
 
 const BookCheckout = ({
   book,
+  isReviewSubmitted,
+  setIsReviewSubmitted,
   isCheckedOut,
   setIsCheckedOut,
 }: BookCheckoutProps) => {
