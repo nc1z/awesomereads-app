@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import BookModel from "../../models/BookModel";
 import { useOktaAuth } from "@okta/okta-react";
 import { useNavigate } from "react-router-dom";
+import setAuthToken from "../../Auth/axiosConfig";
+import axios from "axios";
 
 interface BookCheckoutProps {
   book: BookModel | undefined;
+  isCheckedOut: boolean;
+  setIsCheckedOut: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const BookCheckoutDiv = styled.div`
@@ -32,32 +36,109 @@ const ReserveButton = styled.button`
   }
 `;
 
-const BookCheckout = ({ book }: BookCheckoutProps) => {
+const CheckOutWarning = styled.p`
+  background-color: var(--main-red);
+  border-radius: 0.5rem;
+  text-align: center;
+`;
+
+const BookCheckout = ({
+  book,
+  isCheckedOut,
+  setIsCheckedOut,
+}: BookCheckoutProps) => {
   const { authState } = useOktaAuth();
   const navigate = useNavigate();
+  const [loansCount, setLoansCount] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
+  setAuthToken();
 
-  const handleCheckout = () => {
+  const handleBookCheckout = async () => {
     if (!authState || !authState.isAuthenticated) {
-      navigate("/login");
+      return navigate("/login");
     }
-    // TODO: Checkout logic
+    try {
+      const { data: response } = await axios.put(
+        `/api/books/secure/checkout?bookId=${book?.id}`
+      );
+      if (response) {
+        setIsCheckedOut(true);
+      }
+    } catch (error: any) {
+      setErrorMessage(error.message);
+      console.log(error);
+      console.log("Checkout failed - " + error.message);
+    }
   };
+
+  const fetchUserLoansCount = async () => {
+    try {
+      const { data: response } = await axios.get(
+        "/api/books/secure/currentloans/count"
+      );
+      if (Number.isInteger(response)) {
+        setLoansCount(response);
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+  const fetchBookIsCheckedOut = async () => {
+    try {
+      const { data: response } = await axios.get(
+        `/api/books/secure/ischeckedout/byuser?bookId=${book?.id}`
+      );
+      setIsCheckedOut(response);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (authState && authState.isAuthenticated) {
+      fetchUserLoansCount();
+      fetchBookIsCheckedOut();
+    }
+  }, [authState, isCheckedOut]);
 
   return (
     <BookCheckoutDiv>
-      <p>x/5 books checked out</p>
+      <p>{loansCount}/5 books checked out</p>
       <hr />
-      <h3>Available</h3>
+      <h3>
+        {book?.copiesAvailable && book?.copiesAvailable > 0
+          ? "Available"
+          : "Not Available"}
+      </h3>
       <AvailableDiv>
         <p>{book?.copies} copies</p>
         <p>{book?.copiesAvailable} available</p>
       </AvailableDiv>
-      <ReserveButton onClick={handleCheckout}>
-        {authState && authState.isAuthenticated ? "Checkout" : "Login"}
-      </ReserveButton>
+      {authState && authState.isAuthenticated ? (
+        !isCheckedOut && loansCount < 5 ? (
+          <ReserveButton onClick={handleBookCheckout}>Checkout</ReserveButton>
+        ) : isCheckedOut ? (
+          <CheckOutWarning>Book checked out. Enjoy!</CheckOutWarning>
+        ) : (
+          <CheckOutWarning>Too many books checked out.</CheckOutWarning>
+        )
+      ) : (
+        <ReserveButton onClick={handleBookCheckout}>Login</ReserveButton>
+      )}
+      {errorMessage && (
+        <CheckOutWarning className="my-2">
+          checkout error. Please try again later.
+        </CheckOutWarning>
+      )}
       <hr />
       <p>The number can change until transaction is completed</p>
-      <p>Sign in to leave a review</p>
+      <div>
+        {" "}
+        {authState && authState.isAuthenticated
+          ? "Leave a review"
+          : "Sign in to leave a review"}
+      </div>
     </BookCheckoutDiv>
   );
 };

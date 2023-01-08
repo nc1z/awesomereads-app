@@ -48,13 +48,21 @@ const UtilsDiv = styled.div`
 `;
 
 const BookPage = () => {
+  // Book Details State
   const [book, setBook] = useState<BookModel>();
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+
+  // Book Reviews State
   const [reviews, setReviews] = useState<ReviewModel[]>([]);
   const [averageReview, setAverageReview] = useState(0);
   const [isLoadingReviews, setIsLoadingReviews] = useState(true);
   const [reviewErrorMessage, setReviewErrorMessage] = useState("");
+
+  // Book Checked Out State
+  const [isCheckedOut, setIsCheckedOut] = useState(false);
+
+  // Book Id
   const { bookId } = useParams();
 
   const fetchBooks = async () => {
@@ -128,6 +136,9 @@ const BookPage = () => {
 
   useEffect(() => {
     fetchBooks();
+  }, [isCheckedOut]);
+
+  useEffect(() => {
     fetchReviews();
   }, []);
 
@@ -151,7 +162,11 @@ const BookPage = () => {
     <BookPageDiv>
       <BookTopContainer>
         <BookDescription book={book} rating={averageReview} />
-        <BookCheckout book={book} />
+        <BookCheckout
+          book={book}
+          isCheckedOut={isCheckedOut}
+          setIsCheckedOut={setIsCheckedOut}
+        />
       </BookTopContainer>
       <BookReviews
         reviews={reviews}
