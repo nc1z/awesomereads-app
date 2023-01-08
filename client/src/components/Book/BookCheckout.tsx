@@ -40,6 +40,18 @@ const CheckOutWarning = styled.p`
   background-color: var(--main-red);
   border-radius: 0.5rem;
   text-align: center;
+  font-weight: 600;
+  padding: 0.2rem 0;
+  margin-bottom: 0;
+`;
+
+const CheckOutSuccess = styled.p`
+  background-color: var(--main-gray);
+  border-radius: 0.5rem;
+  text-align: center;
+  font-weight: 600;
+  padding: 0.2rem 0;
+  margin-bottom: 0;
 `;
 
 const BookCheckout = ({
@@ -119,7 +131,7 @@ const BookCheckout = ({
         !isCheckedOut && loansCount < 5 ? (
           <ReserveButton onClick={handleBookCheckout}>Checkout</ReserveButton>
         ) : isCheckedOut ? (
-          <CheckOutWarning>Book checked out. Enjoy!</CheckOutWarning>
+          <CheckOutSuccess>Book checked out. Enjoy!</CheckOutSuccess>
         ) : (
           <CheckOutWarning>Too many books checked out.</CheckOutWarning>
         )

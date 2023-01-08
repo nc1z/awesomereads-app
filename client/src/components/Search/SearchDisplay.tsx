@@ -81,7 +81,7 @@ const SearchDisplay = () => {
       setBooks(booksArray);
       setPageDetails(response.page);
       setIsLoading(false);
-      console.log(response);
+      // console.log(response);
     } catch (error: any) {
       setIsLoading(false);
       setErrorMessage(error.message);

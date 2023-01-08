@@ -34,7 +34,7 @@ const CarouselContainer = () => {
 
       setBooks(booksArray);
       setIsLoading(false);
-      console.log(response);
+      // console.log(response);
     } catch (error: any) {
       setIsLoading(false);
       setErrorMessage(error.message);
