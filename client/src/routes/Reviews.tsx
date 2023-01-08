@@ -1,6 +1,10 @@
 import React from "react";
 
-const Reviews = () => {
+interface ReviewsPageProps {
+  bookId: number;
+}
+
+const Reviews = ({ bookId }: ReviewsPageProps) => {
   return <div>ReviewList</div>;
 };
 
