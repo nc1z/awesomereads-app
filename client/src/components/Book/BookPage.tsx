@@ -24,7 +24,7 @@ const BookPageDiv = styled.div`
 
   @media (max-width: 480px) {
     margin-top: 2rem;
-    margin-bottom: 8rem;
+    margin-bottom: 10rem;
   }
 `;
 
@@ -172,6 +172,7 @@ const BookPage = () => {
         />
       </BookTopContainer>
       <BookReviews
+        bookId={book?.id}
         reviews={reviews}
         averageReview={averageReview}
         isLoadingReviews={isLoadingReviews}
