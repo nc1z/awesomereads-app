@@ -13,6 +13,7 @@ import { LoginCallback, Security } from "@okta/okta-react";
 import Loading from "./components/Loading/Loading";
 import ProtectedRoute from "./Auth/ProtectedRoute";
 import Services from "./routes/Services";
+import Reviews from "./routes/Reviews";
 
 const AppContainer = styled(Container)`
   // border: 10px solid white;
@@ -62,10 +63,11 @@ function App() {
               />
             }
           />
+          <Route path="/book/:bookId" element={<Book />} />
+          <Route path="/reviews/:bookId" element={<Reviews />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/services" element={<Services />} />
           </Route>
-          <Route path="/book/:bookId" element={<Book />} />
         </Routes>
       </Security>
     </AppContainer>
