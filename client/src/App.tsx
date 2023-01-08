@@ -4,7 +4,6 @@ import "./App.css";
 import NavigationMenu from "./components/Nav/NavigationMenu";
 import Home from "./routes/Home";
 import Login from "./routes/Login";
-import Signup from "./routes/Signup";
 import styled from "styled-components";
 import Search from "./routes/Search";
 import Book from "./routes/Book";
@@ -19,6 +18,11 @@ const AppContainer = styled(Container)`
   // border: 10px solid white;
   height: 100vh;
   position relative;
+`;
+
+const UtilsDiv = styled.div`
+  position: fixed;
+  top: 36%;
 `;
 
 const oktaAuth = new OktaAuth(oktaConfig);
@@ -48,9 +52,16 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route
             path="/login/callback"
-            element={<LoginCallback loadingElement={<Loading />} />}
+            element={
+              <LoginCallback
+                loadingElement={
+                  <UtilsDiv>
+                    <Loading />
+                  </UtilsDiv>
+                }
+              />
+            }
           />
-          {/* <Route path="/signup" element={<Signup />} /> */}
           <Route element={<ProtectedRoute />}>
             <Route path="/services" element={<Services />} />
           </Route>
