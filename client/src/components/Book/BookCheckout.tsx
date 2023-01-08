@@ -5,6 +5,7 @@ import { useOktaAuth } from "@okta/okta-react";
 import { useNavigate } from "react-router-dom";
 import setAuthToken from "../../Auth/axiosConfig";
 import axios from "axios";
+import ReviewButton from "./ReviewButton";
 
 interface BookCheckoutProps {
   book: BookModel | undefined;
@@ -151,9 +152,21 @@ const BookCheckout = ({
       <p>The number can change until transaction is completed</p>
       <div>
         {" "}
-        {authState && authState.isAuthenticated
-          ? "Leave a review"
-          : "Sign in to leave a review"}
+        {authState && authState.isAuthenticated ? (
+          isReviewSubmitted ? (
+            <CheckOutSuccess>Review submitted. Thank you!</CheckOutSuccess>
+          ) : (
+            <>
+              <ReviewButton
+                book={book}
+                isReviewSubmitted={isReviewSubmitted}
+                setIsReviewSubmitted={setIsReviewSubmitted}
+              />
+            </>
+          )
+        ) : (
+          "Sign in to leave a review"
+        )}
       </div>
     </BookCheckoutDiv>
   );
