@@ -1,12 +1,66 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ErrorDiv from "../components/Error/ErrorDiv";
 import Loading from "../components/Loading/Loading";
 import UtilsDiv from "../Utils/StyledExports";
 import PageDetailsModel from "../models/PageDetailsModel";
 import ReviewModel from "../models/ReviewModel";
 import Review from "../components/Reviews/Review";
+import BooksPagination from "../components/Search/BooksPagination";
+import styled from "styled-components";
+
+const ReviewsRouteContainer = styled.div`
+  // border: 5px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ReviewsPageDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 1rem;
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 12rem;
+
+  @media (max-width: 480px) {
+    margin-top: 2rem;
+    margin-bottom: 10rem;
+  }
+`;
+
+const BackToBookPageLink = styled(Link)`
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.4em 1.2em;
+  font-family: inherit;
+  background-color: var(--main-orange);
+  cursor: pointer;
+  margin: 1 0.5rem;
+
+  max-width: max-content;
+  color: var(--main-white);
+  font-size: 0.8rem;
+  font-weight: 700;
+
+  &:hover {
+    color: var(--main-white);
+    background-color: var(--main-red);
+  }
+
+  &:focus {
+    color: var(--main-white);
+    background-color: var(--main-red);
+  }
+`;
+
+const PageDetailsSpan = styled.span`
+  font-size: 1rem;
+`;
 
 const Reviews = () => {
   // Reviews State
@@ -16,7 +70,12 @@ const Reviews = () => {
 
   // Pagination State
   const [page, setPage] = useState(0);
-  const [pageDetails, setPageDetails] = useState<PageDetailsModel>();
+  const [pageDetails, setPageDetails] = useState<PageDetailsModel>({
+    number: 0,
+    size: 0,
+    totalElements: 0,
+    totalPages: 0,
+  });
 
   // Book Id
   const { bookId } = useParams();
@@ -79,9 +138,28 @@ const Reviews = () => {
   }
 
   return (
-    <div>
-      <Review reviews={reviews} />
-    </div>
+    <ReviewsRouteContainer>
+      <ReviewsPageDiv>
+        <BackToBookPageLink to={`/book/${bookId}`}>Back</BackToBookPageLink>
+        <PageDetailsSpan>
+          <h3>All Community Reviews</h3>
+          Total results: {pageDetails.totalElements}
+        </PageDetailsSpan>
+        <BooksPagination
+          page={page}
+          setPage={setPage}
+          totalPages={pageDetails.totalPages}
+        />
+        <hr style={{ width: "80vw" }}></hr>
+        <Review reviews={reviews} slicedLength={0} />
+        <hr style={{ width: "80vw" }}></hr>
+        <BooksPagination
+          page={page}
+          setPage={setPage}
+          totalPages={pageDetails.totalPages}
+        />
+      </ReviewsPageDiv>
+    </ReviewsRouteContainer>
   );
 };
 

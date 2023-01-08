@@ -15,6 +15,7 @@ const ReviewsDiv = styled.div`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 1rem;
   margin-bottom: 1rem;
+  width: 100%;
 
   p {
     font-size: 1.25rem;
