@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import BookModel from "../../models/BookModel";
 import ReviewModel from "../../models/ReviewModel";
+import UtilsDiv from "../../Utils/StyledExports";
 import ErrorDiv from "../Error/ErrorDiv";
 import Loading from "../Loading/Loading";
 import BookCheckout from "./BookCheckout";
@@ -40,11 +41,6 @@ const BookTopContainer = styled(Container)`
   @media (max-width: 480px) {
     flex-direction: column;
   }
-`;
-
-const UtilsDiv = styled.div`
-  position: fixed;
-  top: 36%;
 `;
 
 const BookPage = () => {
