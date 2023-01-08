@@ -4,6 +4,7 @@ import { FloatingLabel, Form } from "react-bootstrap";
 import styled from "styled-components";
 import setAuthToken from "../../Auth/axiosConfig";
 import BookModel from "../../models/BookModel";
+import ReviewRequestModel from "../../models/ReviewRequestModel";
 
 interface ReviewButtonProps {
   book: BookModel | undefined;
@@ -70,13 +71,25 @@ const ReviewButton = ({
   setAuthToken();
 
   const handleReviewSubmit = async () => {
+    let bookId: number = 0;
+    if (book?.id) {
+      bookId = book.id;
+    }
+
+    const reviewRequestModel = new ReviewRequestModel(
+      rating,
+      bookId,
+      description
+    );
+
     try {
-      const { data: response } = await axios.post("/api/reviews/secure", {
-        rating: rating,
-        bookId: book?.id,
-        reviewDescription: description,
-      });
-      setIsReviewSubmitted(true);
+      const response = await axios.post(
+        "/api/reviews/secure",
+        reviewRequestModel
+      );
+      if (response.statusText == "OK") {
+        setIsReviewSubmitted(true);
+      }
     } catch (error: any) {
       setErrorMessage(error.message);
       console.log(error.message);
