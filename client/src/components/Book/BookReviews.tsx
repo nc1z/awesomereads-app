@@ -120,7 +120,7 @@ const BookReviews = ({
           <ReviewsDetailsDiv>
             <UserReviewDiv>
               <span>{review.userEmail} rated it</span>
-              <ReviewStars rating={averageReview} />
+              <ReviewStars rating={review.rating} />
             </UserReviewDiv>
             <DateDiv>
               {new Date(review.date)
