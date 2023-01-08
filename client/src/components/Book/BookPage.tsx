@@ -58,6 +58,7 @@ const BookPage = () => {
   const [averageReview, setAverageReview] = useState(0);
   const [isLoadingReviews, setIsLoadingReviews] = useState(true);
   const [reviewErrorMessage, setReviewErrorMessage] = useState("");
+  const [isReviewSubmitted, setIsReviewSubmitted] = useState(false);
 
   // Book Checked Out State
   const [isCheckedOut, setIsCheckedOut] = useState(false);
@@ -140,7 +141,7 @@ const BookPage = () => {
 
   useEffect(() => {
     fetchReviews();
-  }, []);
+  }, [isReviewSubmitted]);
 
   if (isLoading) {
     return (
@@ -164,6 +165,8 @@ const BookPage = () => {
         <BookDescription book={book} rating={averageReview} />
         <BookCheckout
           book={book}
+          isReviewSubmitted={isReviewSubmitted}
+          setIsReviewSubmitted={setIsReviewSubmitted}
           isCheckedOut={isCheckedOut}
           setIsCheckedOut={setIsCheckedOut}
         />
