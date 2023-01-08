@@ -27,7 +27,7 @@ const NavMenu = styled(Navbar)`
 
   @media (max-width: 480px) {
     a {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
     }
     padding-top: 1.5rem;
     padding-bottom: 2rem;
@@ -43,6 +43,7 @@ const NavbarCollapse = styled(Container)`
 
 const NavLinkContainer = styled(Nav)`
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -81,6 +82,16 @@ const NavigationMenu = () => {
             >
               {authState && authState.isAuthenticated ? "User" : "Login"}
             </NavLink>
+            {authState && authState.isAuthenticated ? (
+              <NavLink
+                to="/services"
+                className={({ isActive }) =>
+                  isActive ? "current navlink" : "navlink"
+                }
+              >
+                Services
+              </NavLink>
+            ) : null}
           </NavLinkContainer>
         </NavbarCollapse>
       </Container>

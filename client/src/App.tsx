@@ -13,6 +13,7 @@ import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
 import { LoginCallback, Security } from "@okta/okta-react";
 import Loading from "./components/Loading/Loading";
 import ProtectedRoute from "./Auth/ProtectedRoute";
+import Services from "./routes/Services";
 
 const AppContainer = styled(Container)`
   // border: 10px solid white;
@@ -49,8 +50,9 @@ function App() {
             path="/login/callback"
             element={<LoginCallback loadingElement={<Loading />} />}
           />
+          {/* <Route path="/signup" element={<Signup />} /> */}
           <Route element={<ProtectedRoute />}>
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/services" element={<Services />} />
           </Route>
           <Route path="/book/:bookId" element={<Book />} />
         </Routes>
