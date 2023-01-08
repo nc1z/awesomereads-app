@@ -5,6 +5,7 @@ import ReviewStars from "../Book/ReviewStars";
 
 interface ReviewProps {
   reviews: ReviewModel[];
+  slicedLength: number;
 }
 
 const ReviewsDiv = styled.div`
@@ -51,9 +52,32 @@ const DateDiv = styled.div`
   opacity: 60%;
 `;
 
-const Review = ({ reviews }: ReviewProps) => {
+const Review = ({ reviews, slicedLength }: ReviewProps) => {
   if (reviews.length == 0) {
     return <div>No Reviews Yet.</div>;
+  }
+
+  if (slicedLength) {
+    <>
+      {reviews?.slice(0, slicedLength).map((review: ReviewModel) => (
+        <ReviewsDiv key={review.id}>
+          <ReviewsDetailsDiv>
+            <UserReviewDiv>
+              <span>{review.userEmail} rated it</span>
+              <ReviewStars rating={review.rating} />
+            </UserReviewDiv>
+            <DateDiv>
+              {new Date(review.date)
+                .toString()
+                .split(" ")
+                .slice(1, 4)
+                .join(" ")}
+            </DateDiv>
+          </ReviewsDetailsDiv>
+          <p>{review.reviewDescription}</p>
+        </ReviewsDiv>
+      ))}
+    </>;
   }
   return (
     <>
