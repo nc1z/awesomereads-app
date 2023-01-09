@@ -32,6 +32,12 @@ const NavMenu = styled(Navbar)`
     padding-top: 1.5rem;
     padding-bottom: 2rem;
   }
+
+  @media (max-width: 320px) {
+    a {
+      font-size: 1.25rem;
+    }
+  }
 `;
 
 const NavbarCollapse = styled(Container)`
@@ -74,14 +80,18 @@ const NavigationMenu = () => {
             >
               Search
             </NavLink>
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                isActive ? "current navlink" : "navlink"
-              }
-            >
-              {authState && authState.isAuthenticated ? "User" : "Login"}
-            </NavLink>
+
+            {authState && authState.isAuthenticated ? (
+              <NavLink
+                to="/loans"
+                className={({ isActive }) =>
+                  isActive ? "current navlink" : "navlink"
+                }
+              >
+                Loans
+              </NavLink>
+            ) : null}
+
             {authState && authState.isAuthenticated ? (
               <NavLink
                 to="/services"
@@ -92,6 +102,15 @@ const NavigationMenu = () => {
                 Services
               </NavLink>
             ) : null}
+
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                isActive ? "current navlink" : "navlink"
+              }
+            >
+              {authState && authState.isAuthenticated ? "Account" : "Login"}
+            </NavLink>
           </NavLinkContainer>
         </NavbarCollapse>
       </Container>

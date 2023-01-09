@@ -1,9 +1,10 @@
 import { useOktaAuth } from "@okta/okta-react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import styled from "styled-components";
 import Loading from "../components/Loading/Loading";
+import UtilsDiv from "../Utils/StyledExports";
 
 const LoginContainer = styled.div`
   //   border: 10px solid white;
@@ -12,7 +13,7 @@ const LoginContainer = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  gap: 1rem;
+  gap: 1.25rem;
   position: absolute;
   top: 0;
   right: 0;
@@ -20,9 +21,51 @@ const LoginContainer = styled.div`
   bottom: 20%;
 `;
 
-const UtilsDiv = styled.div`
-  position: fixed;
-  top: 36%;
+const AccountContainer = styled(Container)`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 20%;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
+  }
+`;
+
+const UserDetailsDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 1rem;
+
+  @media (max-width: 480px) {
+    justify-content: center;
+    align-items: center;
+    order: 1;
+  }
+
+  @media (max-width: 320px) {
+    font-size: 1rem;
+    gap: 0.25rem;
+  }
+`;
+
+const AuthButton = styled.button`
+  color: var(--main-white);
+  font-weight: 700;
+
+  &:hover {
+    background-color: var(--main-red);
+  }
 `;
 
 const Login = () => {
@@ -80,33 +123,41 @@ const Login = () => {
   if (!authState.isAuthenticated) {
     return (
       <LoginContainer>
-        <Button onClick={handleLogin} disabled={isLoading && true}>
+        <img src="/images/undraw-read-1.svg" className="svgart" />
+        <h3>To read is to voyage through time.</h3>
+        <AuthButton onClick={handleLogin} disabled={isLoading && true}>
           Login
-        </Button>
+        </AuthButton>
       </LoginContainer>
     );
   }
 
   if (authState.isAuthenticated && !userInfo) {
     return (
-      <LoginContainer>
-        <div>Loading user information...</div>
-        <Button onClick={handleLogout} disabled={isLoading && true}>
-          Sign out
-        </Button>
-      </LoginContainer>
+      <AccountContainer>
+        <UserDetailsDiv>
+          <div>Loading user information...</div>
+          <AuthButton onClick={handleLogout} disabled={isLoading && true}>
+            Sign out
+          </AuthButton>
+        </UserDetailsDiv>
+        <img src="/images/undraw-read-2.svg" className="svgart" />
+      </AccountContainer>
     );
   }
 
   return (
-    <LoginContainer>
-      <div>Email: {userInfo.email}</div>
-      <div>Name: {userInfo.name}</div>
-      <div>Last Logged in: {userInfo.headers.date}</div>
-      <Button onClick={handleLogout} disabled={isLoading && true}>
-        Sign out
-      </Button>
-    </LoginContainer>
+    <AccountContainer>
+      <UserDetailsDiv>
+        <div>Email: {userInfo.email}</div>
+        <div>Name: {userInfo.name}</div>
+        <div>Last Logged in: {userInfo.headers.date}</div>
+        <AuthButton onClick={handleLogout} disabled={isLoading && true}>
+          Sign out
+        </AuthButton>
+      </UserDetailsDiv>
+      <img src="/images/undraw-read-2.svg" className="svgart" />
+    </AccountContainer>
   );
 };
 

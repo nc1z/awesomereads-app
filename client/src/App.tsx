@@ -14,6 +14,7 @@ import Loading from "./components/Loading/Loading";
 import ProtectedRoute from "./Auth/ProtectedRoute";
 import Services from "./routes/Services";
 import Reviews from "./routes/Reviews";
+import Loans from "./routes/Loans";
 
 const AppContainer = styled(Container)`
   // border: 10px solid white;
@@ -67,6 +68,7 @@ function App() {
           <Route path="/reviews/:bookId" element={<Reviews />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/services" element={<Services />} />
+            <Route path="/loans" element={<Loans />} />
           </Route>
         </Routes>
       </Security>
