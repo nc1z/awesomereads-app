@@ -52,6 +52,11 @@ const UserDetailsDiv = styled.div`
     align-items: center;
     order: 1;
   }
+
+  @media (max-width: 320px) {
+    font-size: 1rem;
+    gap: 0.25rem;
+  }
 `;
 
 const AuthButton = styled.button`
