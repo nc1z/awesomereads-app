@@ -82,6 +82,18 @@ const NavigationMenu = () => {
             >
               {authState && authState.isAuthenticated ? "User" : "Login"}
             </NavLink>
+
+            {authState && authState.isAuthenticated ? (
+              <NavLink
+                to="/loans"
+                className={({ isActive }) =>
+                  isActive ? "current navlink" : "navlink"
+                }
+              >
+                Loans
+              </NavLink>
+            ) : null}
+
             {authState && authState.isAuthenticated ? (
               <NavLink
                 to="/services"
