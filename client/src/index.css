@@ -85,3 +85,14 @@ button {
 .Navtabactive {
   background-color: var(--main-orange) !important;
 }
+
+/* Images */
+.svgart {
+  width: 30vw;
+}
+
+@media (max-width: 480px) {
+  .svgart {
+    width: 80vw;
+  }
+}
