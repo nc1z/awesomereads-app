@@ -4,12 +4,20 @@ import com.nc1z.server.dao.BookRepository;
 import com.nc1z.server.dao.CheckoutRepository;
 import com.nc1z.server.entity.Book;
 import com.nc1z.server.entity.Checkout;
+import com.nc1z.server.model.CurrentLoansResponse;
+import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Transactional
@@ -57,5 +65,48 @@ public class BookService {
 
     public int currentLoansCount(String userEmail) {
         return checkoutRepository.findBooksByUserEmail(userEmail).size();
+    }
+
+    //
+    // This currentLoans() method queries for a list of the user's checkout transactions, gets the book id(s)
+    // from it and store it in a List. It then uses that list of id(s) to find all books.
+    // Now that it has the book objects from the list and its checkout/return date from the checkout transactions,
+    // it can calculate and return a List of CurrentLoansResponses, each containing a book object and daysLeft.
+    //
+    public List<CurrentLoansResponse> currentLoans(String userEmail) throws Exception {
+
+        List<CurrentLoansResponse> currentLoansResponses = new ArrayList<>();
+
+        List<Checkout> checkoutList = checkoutRepository.findBooksByUserEmail(userEmail);
+
+        List<Long> bookIdList = new ArrayList<>();
+
+        for (Checkout checkedOutBook: checkoutList) {
+            bookIdList.add(checkedOutBook.getBookId());
+        }
+
+        List<Book> books = bookRepository.findBooksByBookIds(bookIdList);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        for (Book book: books) {
+            Optional<Checkout> checkout = checkoutList.stream()
+                    .filter(x -> x.getBookId() == book.getId()).findFirst();
+
+            if (checkout.isPresent()) {
+
+                Date returnDate = sdf.parse(checkout.get().getReturnDate());
+                Date currentDate = sdf.parse(LocalDate.now().toString());
+
+                TimeUnit time = TimeUnit.DAYS;
+
+                long difference_In_Time = time.convert(returnDate.getTime() - currentDate.getTime(),
+                        TimeUnit.MILLISECONDS);
+
+                currentLoansResponses.add(new CurrentLoansResponse(book, (int) difference_In_Time));
+            }
+        }
+
+        return currentLoansResponses;
     }
 }
