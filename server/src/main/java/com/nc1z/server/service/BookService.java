@@ -4,11 +4,15 @@ import com.nc1z.server.dao.BookRepository;
 import com.nc1z.server.dao.CheckoutRepository;
 import com.nc1z.server.entity.Book;
 import com.nc1z.server.entity.Checkout;
+import com.nc1z.server.model.CurrentLoansResponse;
+import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -57,5 +61,26 @@ public class BookService {
 
     public int currentLoansCount(String userEmail) {
         return checkoutRepository.findBooksByUserEmail(userEmail).size();
+    }
+
+    //
+    // This currentLoans() method queries for a list of the user's checkout transactions, gets the book id(s)
+    // from it and store it in a List. It then uses that list of id(s) to find all books.
+    // Now that it has the book objects from the list and its checkout/return date from the checkout transactions,
+    // it can calculate and return a List of CurrentLoansResponses, each containing a book object and daysLeft.
+    //
+    public List<CurrentLoansResponse> currentLoans(String userEmail) throws Exception {
+
+        List<CurrentLoansResponse> currentLoansResponses = new ArrayList<>();
+
+        List<Checkout> checkoutList = checkoutRepository.findBooksByUserEmail(userEmail);
+
+        List<Long> bookIdList = new ArrayList<>();
+
+        for (Checkout checkedOutBook: checkoutList) {
+            bookIdList.add(checkedOutBook.getBookId());
+        }
+
+        List<Book> books = bookRepository.findBooksByBookIds(bookIdList);
     }
 }
