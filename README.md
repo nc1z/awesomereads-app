@@ -30,12 +30,11 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#application architecture">Application Architecture</a></li>
-        <li><a href="#live snippets">Working App Snippets</a></li>
+        <li><a href="#application-architecture">Application Architecture</a></li>
         <li><a href="#deploying-with">Deploying With</a></li>
       </ul>
     </li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#user-stories">User Stories</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
@@ -69,7 +68,7 @@ Are you an avid reader? AwesomeReads seeks to simulate an online library service
 
 <img width="680" alt="AR Architecture" src="https://user-images.githubusercontent.com/111836326/211254277-fa8199dd-8fda-4a9c-a4a8-318d1fe76498.png">
 
-<!-- BUILT WITH -->
+<!-- Deploying With-->
 
 ### Deploying With
 
@@ -78,7 +77,7 @@ Are you an avid reader? AwesomeReads seeks to simulate an online library service
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ROADMAP -->
+<!-- User Stories -->
 
 ## User Stories
 
