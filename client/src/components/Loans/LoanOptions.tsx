@@ -66,7 +66,11 @@ const LoanOptions = ({ loan }: LoanOptionsProps) => {
         <Button variant="outline-light" onClick={() => navigate("/search")}>
           Borrow more books
         </Button>
-        <LoanOptionsModal show={modalShow} setModalShow={setModalShow} />
+        <LoanOptionsModal
+          loan={loan}
+          show={modalShow}
+          setModalShow={setModalShow}
+        />
       </ButtonGroupResponsive>
     </LoanDetailsDiv>
   );
