@@ -44,7 +44,8 @@ const DueDateSpan = styled.span<DueDateProps>`
 `;
 
 const ButtonGroupResponsive = styled(ButtonGroup)`
-  margin: 1rem 0;
+  margin-top: 1rem;
+  margin-bottom: 0.2rem;
   width: 100%;
 `;
 
