@@ -1,12 +1,16 @@
+import { useOktaAuth } from "@okta/okta-react";
+import axios from "axios";
 import React from "react";
 import { Button, ButtonGroup, Modal } from "react-bootstrap";
 import styled, { css } from "styled-components";
+import setAuthToken from "../../Auth/axiosConfig";
 import CurrentLoansModel from "../../models/CurrentLoansModel";
 
 interface LoanOptionsModalProps {
   loan: CurrentLoansModel;
   show: boolean;
   setModalShow: React.Dispatch<React.SetStateAction<boolean>>;
+  fetchCurrentLoans: () => Promise<void>;
 }
 
 interface DueDateProps {
@@ -70,7 +74,43 @@ const LoanOptionsModal = ({
   loan,
   show,
   setModalShow,
+  fetchCurrentLoans,
 }: LoanOptionsModalProps) => {
+  const { authState } = useOktaAuth();
+  setAuthToken();
+
+  const handleReturnBook = async () => {
+    try {
+      if (authState && authState.isAuthenticated) {
+        const response = await axios.put(
+          `/api/books/secure/return?bookId=${loan.book.id}`
+        );
+        if (response.statusText === "OK") {
+          setModalShow(false);
+          fetchCurrentLoans();
+        }
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
+  const handleRenewLoan = async () => {
+    try {
+      if (authState && authState.isAuthenticated) {
+        const response = await axios.put(
+          `/api/books/secure/renew/loan?bookId=${loan.book.id}`
+        );
+        if (response.statusText === "OK") {
+          setModalShow(false);
+          fetchCurrentLoans();
+        }
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
   return (
     <ModalContainer
       show={show}
@@ -90,10 +130,10 @@ const LoanOptionsModal = ({
           Due in <em>{loan.daysLeft}</em> days
         </DueDateSpan>
         <ButtonGroupResponsive vertical>
-          <LoanOptionButtons variant="outline-dark">
+          <LoanOptionButtons variant="outline-dark" onClick={handleReturnBook}>
             Return Book
           </LoanOptionButtons>
-          <LoanOptionButtons variant="outline-dark">
+          <LoanOptionButtons variant="outline-dark" onClick={handleRenewLoan}>
             Renew for 7 days
           </LoanOptionButtons>
         </ButtonGroupResponsive>

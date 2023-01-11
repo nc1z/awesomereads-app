@@ -113,7 +113,10 @@ const Loans = () => {
           <Col sm={9}>
             <Tab.Content>
               <Tab.Pane eventKey="first">
-                <LoansPage currentLoans={currentLoans} />
+                <LoansPage
+                  currentLoans={currentLoans}
+                  fetchCurrentLoans={fetchCurrentLoans}
+                />
               </Tab.Pane>
               <Tab.Pane eventKey="second">
                 <History />
