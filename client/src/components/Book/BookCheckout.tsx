@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import BookModel from "../../models/BookModel";
 import { useOktaAuth } from "@okta/okta-react";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,10 @@ interface BookCheckoutProps {
   setIsReviewSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
   isCheckedOut: boolean;
   setIsCheckedOut: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface CheckOutState {
+  isSuccess?: boolean;
 }
 
 const BookCheckoutDiv = styled.div`
@@ -39,22 +43,19 @@ const ReserveButton = styled.button`
   }
 `;
 
-const CheckOutWarning = styled.p`
+const CheckOutWarning = styled.p<CheckOutState>`
   background-color: var(--main-red);
   border-radius: 0.5rem;
   text-align: center;
   font-weight: 600;
   padding: 0.2rem 0;
   margin-bottom: 0;
-`;
 
-const CheckOutSuccess = styled.p`
-  background-color: var(--main-gray);
-  border-radius: 0.5rem;
-  text-align: center;
-  font-weight: 600;
-  padding: 0.2rem 0;
-  margin-bottom: 0;
+  ${({ isSuccess }) =>
+    isSuccess &&
+    css`
+      background-color: var(--main-gray);
+    `}
 `;
 
 const BookCheckout = ({
@@ -136,15 +137,19 @@ const BookCheckout = ({
         !isCheckedOut && loansCount < 5 ? (
           <ReserveButton onClick={handleBookCheckout}>Checkout</ReserveButton>
         ) : isCheckedOut ? (
-          <CheckOutSuccess>Book checked out. Enjoy!</CheckOutSuccess>
+          <CheckOutWarning isSuccess={true}>
+            Book checked out. Enjoy!
+          </CheckOutWarning>
         ) : (
-          <CheckOutWarning>Too many books checked out.</CheckOutWarning>
+          <CheckOutWarning isSuccess={false}>
+            Too many books checked out.
+          </CheckOutWarning>
         )
       ) : (
         <ReserveButton onClick={handleBookCheckout}>Login</ReserveButton>
       )}
       {errorMessage && (
-        <CheckOutWarning className="my-2">
+        <CheckOutWarning className="my-2" isSuccess={false}>
           checkout error. Please try again later.
         </CheckOutWarning>
       )}
@@ -154,7 +159,9 @@ const BookCheckout = ({
         {" "}
         {authState && authState.isAuthenticated ? (
           isReviewSubmitted ? (
-            <CheckOutSuccess>Review submitted. Thank you!</CheckOutSuccess>
+            <CheckOutWarning isSuccess={true}>
+              Review submitted. Thank you!
+            </CheckOutWarning>
           ) : (
             <>
               <ReviewButton
