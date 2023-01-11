@@ -20,7 +20,9 @@ const LoanDetailsDiv = styled.div`
   align-items: start;
   gap: 0.5rem;
   margin-left: auto;
+  min-width: 35%;
 
+  color: var(--main-white);
   padding: 0.5rem 0.8rem;
   border-radius: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -50,6 +52,16 @@ const ButtonGroupResponsive = styled(ButtonGroup)`
   width: 100%;
 `;
 
+const LoanOptionButtons = styled(Button)`
+  color: var(--main-white);
+  border-color: var(--main-white);
+
+  &:hover {
+    border-color: var(--main-white);
+    background-color: var(--main-white);
+  }
+`;
+
 const LoanOptions = ({ loan }: LoanOptionsProps) => {
   const [modalShow, setModalShow] = useState(false);
   const navigate = useNavigate();
@@ -60,12 +72,18 @@ const LoanOptions = ({ loan }: LoanOptionsProps) => {
         Due in {loan.daysLeft} days
       </DueDateSpan>
       <ButtonGroupResponsive vertical>
-        <Button variant="outline-light" onClick={() => setModalShow(true)}>
+        <LoanOptionButtons
+          variant="outline-light"
+          onClick={() => setModalShow(true)}
+        >
           Manage Loan
-        </Button>
-        <Button variant="outline-light" onClick={() => navigate("/search")}>
+        </LoanOptionButtons>
+        <LoanOptionButtons
+          variant="outline-light"
+          onClick={() => navigate("/search")}
+        >
           Borrow more books
-        </Button>
+        </LoanOptionButtons>
         <LoanOptionsModal
           loan={loan}
           show={modalShow}

@@ -23,6 +23,7 @@ const LoansRouteContainer = styled.div`
 
 const LoansRow = styled(Row)`
   //   border: 5px solid white;
+  color: var(--main-white);
   display: flex;
   width: 100%;
   margin-top: 2rem;
