@@ -7,6 +7,7 @@ import LoanOptionsModal from "./LoanOptionsModal";
 
 interface LoanOptionsProps {
   loan: CurrentLoansModel;
+  fetchCurrentLoans: () => Promise<void>;
 }
 
 interface DueDateProps {
@@ -62,7 +63,7 @@ const LoanOptionButtons = styled(Button)`
   }
 `;
 
-const LoanOptions = ({ loan }: LoanOptionsProps) => {
+const LoanOptions = ({ loan, fetchCurrentLoans }: LoanOptionsProps) => {
   const [modalShow, setModalShow] = useState(false);
   const navigate = useNavigate();
   return (
@@ -88,6 +89,7 @@ const LoanOptions = ({ loan }: LoanOptionsProps) => {
           loan={loan}
           show={modalShow}
           setModalShow={setModalShow}
+          fetchCurrentLoans={fetchCurrentLoans}
         />
       </ButtonGroupResponsive>
     </LoanDetailsDiv>
