@@ -91,10 +91,10 @@ const LoanOptionsModal = ({
         </DueDateSpan>
         <ButtonGroupResponsive vertical>
           <LoanOptionButtons variant="outline-dark">
-            Manage Loan
+            Return Book
           </LoanOptionButtons>
           <LoanOptionButtons variant="outline-dark">
-            Borrow more books
+            Renew for 7 days
           </LoanOptionButtons>
         </ButtonGroupResponsive>
       </Modal.Body>
