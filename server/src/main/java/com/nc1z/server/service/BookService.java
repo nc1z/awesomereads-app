@@ -2,8 +2,10 @@ package com.nc1z.server.service;
 
 import com.nc1z.server.dao.BookRepository;
 import com.nc1z.server.dao.CheckoutRepository;
+import com.nc1z.server.dao.HistoryRepository;
 import com.nc1z.server.entity.Book;
 import com.nc1z.server.entity.Checkout;
+import com.nc1z.server.entity.History;
 import com.nc1z.server.model.CurrentLoansResponse;
 import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class BookService {
 
     @Autowired
     private CheckoutRepository checkoutRepository;
+
+    @Autowired
+    private HistoryRepository historyRepository;
 
     public Book checkoutBook(String userEmail, Long bookId) throws Exception {
 
@@ -124,6 +129,18 @@ public class BookService {
 
         bookRepository.save(book.get());
         checkoutRepository.deleteById(validateCheckout.getId());
+
+        History history = new History(
+                userEmail,
+                validateCheckout.getCheckoutDate(),
+                LocalDate.now().toString(),
+                book.get().getTitle(),
+                book.get().getAuthor(),
+                book.get().getDescription(),
+                book.get().getImg()
+        );
+
+        historyRepository.save(history);
     }
 
     public void renewLoan (String userEmail, Long bookId) throws Exception {
