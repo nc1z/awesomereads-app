@@ -11,6 +11,7 @@ interface LoanOptionsModalProps {
   show: boolean;
   setModalShow: React.Dispatch<React.SetStateAction<boolean>>;
   fetchCurrentLoans: () => Promise<void>;
+  fetchLoansHistory: () => Promise<void>;
 }
 
 interface DueDateProps {
@@ -75,6 +76,7 @@ const LoanOptionsModal = ({
   show,
   setModalShow,
   fetchCurrentLoans,
+  fetchLoansHistory,
 }: LoanOptionsModalProps) => {
   const { authState } = useOktaAuth();
   setAuthToken();
@@ -88,6 +90,7 @@ const LoanOptionsModal = ({
         if (response.statusText === "OK") {
           setModalShow(false);
           fetchCurrentLoans();
+          fetchLoansHistory();
         }
       }
     } catch (error: any) {
