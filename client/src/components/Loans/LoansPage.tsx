@@ -9,6 +9,7 @@ import LoanOptions from "./LoanOptions";
 interface LoansPageProps {
   currentLoans: CurrentLoansModel[];
   fetchCurrentLoans: () => Promise<void>;
+  fetchLoansHistory: () => Promise<void>;
 }
 
 const LoansContainer = styled(Container)`
@@ -54,7 +55,11 @@ const BookImg = styled.img`
   }
 `;
 
-const LoansPage = ({ currentLoans, fetchCurrentLoans }: LoansPageProps) => {
+const LoansPage = ({
+  currentLoans,
+  fetchCurrentLoans,
+  fetchLoansHistory,
+}: LoansPageProps) => {
   const navigate = useNavigate();
   return (
     <LoansContainer>
@@ -72,7 +77,11 @@ const LoansPage = ({ currentLoans, fetchCurrentLoans }: LoansPageProps) => {
                 Leave a review
               </StyledLink>
             </BookDiv>
-            <LoanOptions loan={loan} fetchCurrentLoans={fetchCurrentLoans} />
+            <LoanOptions
+              loan={loan}
+              fetchCurrentLoans={fetchCurrentLoans}
+              fetchLoansHistory={fetchLoansHistory}
+            />
           </BookContainer>
         ))}
     </LoansContainer>
