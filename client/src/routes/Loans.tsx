@@ -13,6 +13,8 @@ import { useOktaAuth } from "@okta/okta-react/";
 import UtilsDiv from "../Utils/StyledExports";
 import Loading from "../components/Loading/Loading";
 import ErrorDiv from "../components/Error/ErrorDiv";
+import HistoryModel from "../models/HistoryModel";
+import PageDetailsModel from "../models/PageDetailsModel";
 
 const LoansRouteContainer = styled.div`
   //   border: 5px solid red;
@@ -37,12 +39,27 @@ const LoansRow = styled(Row)`
 `;
 
 const Loans = () => {
+  // Tab Keys State
   const [key, setKey] = useState("first");
+
+  // Loans State
   const [currentLoans, setCurrentLoans] = useState<CurrentLoansModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const { authState } = useOktaAuth();
   setAuthToken();
+
+  // History State
+  const [history, setHistory] = useState<HistoryModel[]>([]);
+
+  // Pagination State for History
+  const [page, setPage] = useState(0);
+  const [pageDetails, setPageDetails] = useState<PageDetailsModel>({
+    number: 0,
+    size: 0,
+    totalElements: 0,
+    totalPages: 0,
+  });
 
   const fetchCurrentLoans = async () => {
     try {
@@ -62,8 +79,29 @@ const Loans = () => {
     }
   };
 
+  const fetchLoansHistory = async () => {
+    try {
+      if (authState && authState.isAuthenticated) {
+        const { data: response } = await axios.get(
+          `/api/histories/search/findBooksByUserEmail?userEmail=${authState.accessToken?.claims.sub}&page=${page}&size=5`
+        );
+        if (response) {
+          console.log(response);
+          setHistory(response._embedded.histories);
+          setPageDetails(response.page);
+        }
+      }
+      setIsLoading(false);
+    } catch (error: any) {
+      setIsLoading(false);
+      setErrorMessage(error.message);
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchCurrentLoans();
+    fetchLoansHistory();
   }, [authState]);
 
   if (isLoading) {
@@ -116,10 +154,20 @@ const Loans = () => {
                 <LoansPage
                   currentLoans={currentLoans}
                   fetchCurrentLoans={fetchCurrentLoans}
+                  fetchLoansHistory={fetchLoansHistory}
                 />
               </Tab.Pane>
               <Tab.Pane eventKey="second">
-                <History />
+                <History
+                  history={history}
+                  fetchLoansHistory={fetchLoansHistory}
+                  page={page}
+                  setPage={setPage}
+                  totalPages={pageDetails.totalPages}
+                  pageDetails={pageDetails}
+                  isLoading={isLoading}
+                  errorMessage={errorMessage}
+                />
               </Tab.Pane>
             </Tab.Content>
           </Col>
