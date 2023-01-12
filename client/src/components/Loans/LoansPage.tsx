@@ -47,7 +47,6 @@ const BookImg = styled.img`
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
-    transform: scale(1.1);
   }
 
   @media (max-width: 480px) {
