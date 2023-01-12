@@ -100,8 +100,11 @@ const Loans = () => {
 
   useEffect(() => {
     fetchCurrentLoans();
-    fetchLoansHistory();
   }, [authState]);
+
+  useEffect(() => {
+    fetchLoansHistory();
+  }, [authState, page]);
 
   if (isLoading) {
     return (
