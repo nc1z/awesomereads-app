@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import styled from "styled-components";
 import HistoryModel from "../../models/HistoryModel";
 import PageDetailsModel from "../../models/PageDetailsModel";
-import UtilsDiv, { StyledLink } from "../../Utils/StyledExports";
+import UtilsDiv from "../../Utils/StyledExports";
 import ErrorDiv from "../Error/ErrorDiv";
 import Loading from "../Loading/Loading";
 import BooksPagination from "../Search/BooksPagination";
@@ -36,6 +36,7 @@ const BookContainer = styled(Container)`
   width: 100%;
   font-size: 1rem;
   gap: 2rem;
+  margin-bottom: 2rem;
 
   @media (max-width: 480px) {
     flex-direction: column;
@@ -49,7 +50,7 @@ const BookDiv = styled.div`
 `;
 
 const BookImg = styled.img`
-  width: 10%;
+  width: 15%;
 
   @media (max-width: 480px) {
     width: 60vw;
@@ -100,6 +101,14 @@ const History = ({
             <BookDiv>
               <span>{loan.author}</span>
               <h3>{loan.title}</h3>
+              <p>{loan.description.substring(0, 150)}...</p>
+              <hr />
+              <span>
+                <b>Checkout Date:</b> {loan.checkoutDate}
+              </span>
+              <span>
+                <b>Returned Date:</b> {loan.returnedDate}
+              </span>
             </BookDiv>
           </BookContainer>
         ))}

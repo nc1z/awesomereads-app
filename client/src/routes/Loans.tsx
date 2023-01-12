@@ -85,8 +85,7 @@ const Loans = () => {
         const { data: response } = await axios.get(
           `/api/histories/search/findBooksByUserEmail?userEmail=${authState.accessToken?.claims.sub}&page=${page}&size=5`
         );
-        if (response) {
-          console.log(response);
+        if (response._embedded.histories) {
           setHistory(response._embedded.histories);
           setPageDetails(response.page);
         }
