@@ -1,6 +1,7 @@
 import { useOktaAuth } from "@okta/okta-react";
 import React, { useState } from "react";
 import { Col, Nav, Row, Tab } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import AddNewBookForm from "../components/Admin/AddNewBookForm";
 import ChangeQuantityForm from "../components/Admin/ChangeQuantityForm";
@@ -31,6 +32,7 @@ const AdminRow = styled(Row)`
 const Admin = () => {
   // Tab Keys State
   const [key, setKey] = useState("first");
+  const navigate = useNavigate();
 
   const { authState } = useOktaAuth();
 
@@ -66,6 +68,22 @@ const Admin = () => {
                   className={`Navtablink ${key == "third" && "Navtabactive"}`}
                 >
                   Messages
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  className="Navtablink"
+                  onClick={() => navigate("/loans")}
+                >
+                  My Loans
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  className="Navtablink"
+                  onClick={() => navigate("/services")}
+                >
+                  My Services
                 </Nav.Link>
               </Nav.Item>
             </Nav>
