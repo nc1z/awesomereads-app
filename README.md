@@ -10,7 +10,7 @@
 <h2 align="center">AwesomeReads</h2>
 
   <p align="center">
-    Goodreads clone - Full Stack Reactjs (TypeScript) &amp; Spring Boot (Java) with Spring Data REST
+    Goodreads Inspired Library Service - Full Stack Reactjs (TypeScript) &amp; Spring Boot with Spring Data REST (Java)
     <br />
     <a href="https://github.com/nc1z/awesomereads-app"><strong>Explore the docs »</strong></a>
     <br />
