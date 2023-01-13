@@ -1,14 +1,10 @@
 import { useOktaAuth } from "@okta/okta-react";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Col, Nav, Row, Tab } from "react-bootstrap";
 import styled from "styled-components";
-import ErrorDiv from "../components/Error/ErrorDiv";
-import Loading from "../components/Loading/Loading";
-import QuestionForm from "../components/Services/QuestionForm";
-import QuestionResponseDisplay from "../components/Services/QuestionResponseDisplay";
-import MessageModel from "../models/MessageModel";
-import UtilsDiv from "../Utils/StyledExports";
+import AddNewBookForm from "../components/Admin/AddNewBookForm";
+import ChangeQuantityForm from "../components/Admin/ChangeQuantityForm";
+import ReplyMessages from "../components/Admin/ReplyMessages";
 
 const AdminRouteContainer = styled.div`
   // border: 5px solid red;
@@ -77,13 +73,13 @@ const Admin = () => {
           <Col sm={9}>
             <Tab.Content>
               <Tab.Pane eventKey="first">
-                <div>Add New Book Form</div>
+                <AddNewBookForm />
               </Tab.Pane>
               <Tab.Pane eventKey="second">
-                <div>Change Quantity Form</div>
+                <ChangeQuantityForm />
               </Tab.Pane>
               <Tab.Pane eventKey="third">
-                <div>Reply to messages</div>
+                <ReplyMessages />
               </Tab.Pane>
             </Tab.Content>
           </Col>
