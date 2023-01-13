@@ -58,6 +58,7 @@ const NavLinkContainer = styled(Nav)`
 
 const NavigationMenu = () => {
   const { authState } = useOktaAuth();
+  const isAdmin = authState?.accessToken?.claims.userType === "admin";
 
   return (
     <NavMenu expand="lg">
@@ -81,7 +82,7 @@ const NavigationMenu = () => {
               Search
             </NavLink>
 
-            {authState && authState.isAuthenticated ? (
+            {authState && authState.isAuthenticated && !isAdmin ? (
               <NavLink
                 to="/loans"
                 className={({ isActive }) =>
@@ -92,7 +93,7 @@ const NavigationMenu = () => {
               </NavLink>
             ) : null}
 
-            {authState && authState.isAuthenticated ? (
+            {authState && authState.isAuthenticated && !isAdmin ? (
               <NavLink
                 to="/services"
                 className={({ isActive }) =>
@@ -100,6 +101,17 @@ const NavigationMenu = () => {
                 }
               >
                 Services
+              </NavLink>
+            ) : null}
+
+            {authState && authState.isAuthenticated && isAdmin ? (
+              <NavLink
+                to="/admin"
+                className={({ isActive }) =>
+                  isActive ? "current navlink" : "navlink"
+                }
+              >
+                Admin
               </NavLink>
             ) : null}
 
