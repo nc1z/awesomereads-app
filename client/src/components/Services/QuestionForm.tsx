@@ -1,12 +1,15 @@
+import { useOktaAuth } from "@okta/okta-react";
+import axios from "axios";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import setAuthToken from "../../Auth/axiosConfig";
 import MessageModel from "../../models/MessageModel";
 
 interface QuestionFormProps {
-  setMessage: React.Dispatch<React.SetStateAction<MessageModel | undefined>>;
-  setSubmitError: React.Dispatch<React.SetStateAction<string>>;
-  submitError: string;
+  setKey: React.Dispatch<React.SetStateAction<string>>;
+  fetchMessages: () => Promise<void>;
 }
 
 const SubmitButton = styled.button`
@@ -29,25 +32,49 @@ const ErrorMessageDiv = styled.div`
   margin: 0.5rem 0;
 `;
 
-const QuestionForm = ({
-  setMessage,
-  setSubmitError,
-  submitError,
-}: QuestionFormProps) => {
+const QuestionForm = ({ setKey, fetchMessages }: QuestionFormProps) => {
   const [title, setTitle] = useState("");
   const [question, setQuestion] = useState("");
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
 
-  const handleSubmit = (e: any) => {
+  const navigate = useNavigate();
+  const { authState } = useOktaAuth();
+  setAuthToken();
+
+  const postMessage = async (e: any) => {
     e.preventDefault();
+    setIsSubmitLoading(true);
+
+    if (!authState || !authState.isAuthenticated) {
+      return navigate("/login");
+    }
+
     if (!title || !question) {
       return setSubmitError("Please fill out all form fields");
     }
+
     const message: MessageModel = { title: title, question: question };
-    setMessage(message);
+
+    try {
+      const response = await axios.post(
+        `/api/messages/secure/add/message`,
+        message
+      );
+      if (response.statusText === "OK") {
+        fetchMessages();
+        setKey("second");
+        setIsSubmitLoading(false);
+      }
+    } catch (error: any) {
+      setSubmitError(error.message);
+      setIsSubmitLoading(false);
+      console.log(error);
+    }
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={postMessage}>
       {submitError && <ErrorMessageDiv>{submitError}</ErrorMessageDiv>}
       <Form.Group className="mb-3">
         <Form.Label>Title</Form.Label>
@@ -67,7 +94,9 @@ const QuestionForm = ({
           onChange={(e) => setQuestion(e.target.value)}
         />
       </Form.Group>
-      <SubmitButton type="submit">Submit</SubmitButton>
+      <SubmitButton type="submit" disabled={isSubmitLoading}>
+        {isSubmitLoading ? "Submitting" : "Submit"}
+      </SubmitButton>
     </Form>
   );
 };

@@ -1,6 +1,14 @@
-import React, { useState } from "react";
+import { useOktaAuth } from "@okta/okta-react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Col, Nav, Row, Tab } from "react-bootstrap";
 import styled from "styled-components";
+import ErrorDiv from "../components/Error/ErrorDiv";
+import Loading from "../components/Loading/Loading";
+import QuestionForm from "../components/Services/QuestionForm";
+import QuestionResponseDisplay from "../components/Services/QuestionResponseDisplay";
+import MessageModel from "../models/MessageModel";
+import UtilsDiv from "../Utils/StyledExports";
 
 const ServicesRouteContainer = styled.div`
   // border: 5px solid red;
@@ -27,6 +35,50 @@ const ServicesRow = styled(Row)`
 const Services = () => {
   // Tab Keys State
   const [key, setKey] = useState("first");
+
+  // Messages & Responses State
+  const [messages, setMessages] = useState<MessageModel[]>([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { authState } = useOktaAuth();
+
+  const fetchMessages = async () => {
+    try {
+      const { data: response } = await axios.get(
+        `/api/messages/search/findByUserEmail?userEmail=${authState?.accessToken?.claims.sub}`
+      );
+      if (response._embedded.messages) {
+        setMessages(response._embedded.messages);
+        setIsLoading(false);
+      }
+    } catch (error: any) {
+      setErrorMessage(error.message);
+      setIsLoading(false);
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMessages();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <UtilsDiv className="container m-4">
+        <Loading />
+      </UtilsDiv>
+    );
+  }
+
+  if (errorMessage) {
+    return (
+      <UtilsDiv className="container m-4">
+        <ErrorDiv errorMessage={errorMessage} />
+      </UtilsDiv>
+    );
+  }
+
   return (
     <ServicesRouteContainer>
       <Tab.Container
@@ -58,10 +110,10 @@ const Services = () => {
           <Col sm={9}>
             <Tab.Content>
               <Tab.Pane eventKey="first">
-                <div>Question Page</div>
+                <QuestionForm setKey={setKey} fetchMessages={fetchMessages} />
               </Tab.Pane>
               <Tab.Pane eventKey="second">
-                <div>Answers Page</div>
+                <QuestionResponseDisplay messages={messages} />
               </Tab.Pane>
             </Tab.Content>
           </Col>
