@@ -16,6 +16,7 @@ import Services from "./routes/Services";
 import Reviews from "./routes/Reviews";
 import Loans from "./routes/Loans";
 import Admin from "./routes/Admin";
+import AdminRoute from "./Auth/AdminRoute";
 
 const AppContainer = styled(Container)`
   // border: 10px solid white;
@@ -70,6 +71,8 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/services" element={<Services />} />
             <Route path="/loans" element={<Loans />} />
+          </Route>
+          <Route element={<AdminRoute />}>
             <Route path="/admin" element={<Admin />} />
           </Route>
         </Routes>
