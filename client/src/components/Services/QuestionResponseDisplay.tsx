@@ -61,16 +61,23 @@ const QuestionResponseDisplay = ({
           .map((message: MessageModel) => (
             <MessageContainer key={message.title}>
               <MessageDiv>
-                <h3>{message.title}</h3>
+                <h3>
+                  Ticket #{message.id} - {message.title}
+                </h3>
                 <UserSpan>{message.userEmail}</UserSpan>
                 <p>{message.question}</p>
-                {message.response && (
+
+                <hr />
+                <h3>Response</h3>
+                {message.response ? (
                   <>
-                    <hr />
-                    <h3>Response</h3>
                     <UserSpan>{message.adminEmail}</UserSpan>
                     <p>{message.response}</p>
                   </>
+                ) : (
+                  <p>
+                    <em>Pending response from admin</em>
+                  </p>
                 )}
               </MessageDiv>
             </MessageContainer>
