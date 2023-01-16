@@ -81,7 +81,10 @@ const ReplyMessages = () => {
         setPage={setPage}
         totalPages={pageDetails.totalPages}
       />
-      <ActiveQuestionsDisplay messages={messages} />
+      <ActiveQuestionsDisplay
+        messages={messages}
+        fetchMessages={fetchMessages}
+      />
       <BooksPagination
         page={page}
         setPage={setPage}
