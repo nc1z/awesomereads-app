@@ -1,6 +1,7 @@
 import { useOktaAuth } from "@okta/okta-react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import setAuthToken from "../../Auth/axiosConfig";
 import MessageModel from "../../models/MessageModel";
 import PageDetailsModel from "../../models/PageDetailsModel";
 import UtilsDiv from "../../Utils/StyledExports";
@@ -14,7 +15,6 @@ const ReplyMessages = () => {
   const [messages, setMessages] = useState<MessageModel[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const { authState } = useOktaAuth();
 
   // Pagination State
   const [page, setPage] = useState(0);
@@ -24,6 +24,10 @@ const ReplyMessages = () => {
     totalElements: 0,
     totalPages: 0,
   });
+
+  // Auth State
+  const { authState } = useOktaAuth();
+  setAuthToken();
 
   const fetchMessages = async () => {
     if (!authState || !authState.isAuthenticated) {
