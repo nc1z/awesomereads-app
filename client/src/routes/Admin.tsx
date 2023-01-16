@@ -70,22 +70,6 @@ const Admin = () => {
                   Messages
                 </Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link
-                  className="Navtablink"
-                  onClick={() => navigate("/loans")}
-                >
-                  My Loans
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link
-                  className="Navtablink"
-                  onClick={() => navigate("/services")}
-                >
-                  My Services
-                </Nav.Link>
-              </Nav.Item>
             </Nav>
           </Col>
           <Col sm={9}>
