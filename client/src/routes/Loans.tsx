@@ -83,7 +83,7 @@ const Loans = () => {
     try {
       if (authState && authState.isAuthenticated) {
         const { data: response } = await axios.get(
-          `/api/histories/search/findBooksByUserEmail?userEmail=${authState.accessToken?.claims.sub}&page=${page}&size=5`
+          `/api/histories/search/findBooksByUserEmail?userEmail=${authState.accessToken?.claims.sub}&page=${page}&size=5&sort=returnedDate,desc`
         );
         if (response._embedded.histories) {
           setHistory(response._embedded.histories);
