@@ -20,7 +20,7 @@ const BooksContainer = styled(Container)`
 
 const BookContainer = styled(Container)`
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   width: 80%;
   font-size: 1rem;
@@ -28,6 +28,7 @@ const BookContainer = styled(Container)`
 
   @media (max-width: 480px) {
     flex-direction: column;
+    align-items: start;
   }
 `;
 
