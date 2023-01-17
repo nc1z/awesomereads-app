@@ -1,9 +1,11 @@
 import { useOktaAuth } from "@okta/okta-react";
+import axios from "axios";
 import React, { useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import setAuthToken from "../../Auth/axiosConfig";
+import AdminReplyModel from "../../models/AdminReplyModel";
 import MessageModel from "../../models/MessageModel";
 
 interface ActiveQuestionDisplayProps {
@@ -81,27 +83,38 @@ const ActiveQuestionsDisplay = ({
   const [reply, setReply] = useState("");
   const [submitError, setSubmitError] = useState("");
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
-  const navigate = useNavigate();
 
   // Auth State
   const { authState } = useOktaAuth();
   setAuthToken();
 
-  const postReply = (e: any) => {
+  const postReply = async (e: any, messageId?: number) => {
     e.preventDefault();
     setIsSubmitLoading(true);
 
     if (!authState || !authState.isAuthenticated) {
       return setSubmitError("User is not authenticated.");
     }
+    if (!messageId) {
+      return setSubmitError("Message does not exist.");
+    }
     if (!reply) {
-      return setSubmitError("Reply cannot be empty");
+      return setSubmitError("Reply cannot be empty.");
     }
 
+    const adminReplyMessage: AdminReplyModel = new AdminReplyModel(
+      messageId,
+      reply
+    );
     try {
-      console.log("replied success: " + reply);
-
-      fetchMessages();
+      const response = await axios.put(
+        "/api/messages/secure/admin/message",
+        adminReplyMessage
+      );
+      if (response.statusText === "OK") {
+        setIsSubmitLoading(false);
+        fetchMessages();
+      }
     } catch (error: any) {
       setSubmitError(error.message);
       setIsSubmitLoading(false);
@@ -123,7 +136,7 @@ const ActiveQuestionsDisplay = ({
 
                 <hr />
                 <h3>Response</h3>
-                <Form onSubmit={postReply}>
+                <Form onSubmit={(e) => postReply(e, message.id)}>
                   {submitError && (
                     <ErrorMessageDiv>{submitError}</ErrorMessageDiv>
                   )}
