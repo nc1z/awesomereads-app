@@ -112,7 +112,6 @@ const AddNewBookForm = () => {
     try {
       const response = await axios.post("/api/admin/secure/add/book", newBook);
       if (response.statusText === "OK") {
-        setIsSubmitLoading(false);
         setSubmitSuccess(`Success! New book: "${title}" added.`);
         setDefaults();
       }
@@ -127,6 +126,8 @@ const AddNewBookForm = () => {
 
   return (
     <Form onSubmit={addBook}>
+      {submitError && <ErrorMessageDiv>{submitError}</ErrorMessageDiv>}
+      {submitSuccess && <SuccessDiv>{submitSuccess}</SuccessDiv>}
       <Form.Group className="mb-3">
         <Form.Label>Title</Form.Label>
         <Form.Control
@@ -180,8 +181,6 @@ const AddNewBookForm = () => {
       <SubmitButton type="submit" disabled={isSubmitLoading}>
         {isSubmitLoading ? "Submitting" : "Submit"}
       </SubmitButton>
-      {submitError && <ErrorMessageDiv>{submitError}</ErrorMessageDiv>}
-      {submitSuccess && <SuccessDiv>{submitSuccess}</SuccessDiv>}
     </Form>
   );
 };
