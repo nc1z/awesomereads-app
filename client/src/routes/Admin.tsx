@@ -4,7 +4,7 @@ import { Col, Nav, Row, Tab } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import AddNewBookForm from "../components/Admin/AddNewBookForm";
-import ChangeQuantityForm from "../components/Admin/ChangeQuantityForm";
+import ManageBooks from "../components/Admin/ManageBooks";
 import ReplyMessages from "../components/Admin/ReplyMessages";
 
 const AdminRouteContainer = styled.div`
@@ -32,9 +32,6 @@ const AdminRow = styled(Row)`
 const Admin = () => {
   // Tab Keys State
   const [key, setKey] = useState("first");
-  const navigate = useNavigate();
-
-  const { authState } = useOktaAuth();
 
   return (
     <AdminRouteContainer>
@@ -78,7 +75,7 @@ const Admin = () => {
                 <AddNewBookForm />
               </Tab.Pane>
               <Tab.Pane eventKey="second">
-                <ChangeQuantityForm />
+                <ManageBooks />
               </Tab.Pane>
               <Tab.Pane eventKey="third">
                 <ReplyMessages />
