@@ -87,7 +87,7 @@ const LoanOptionsModal = ({
         const response = await axios.put(
           `/api/books/secure/return?bookId=${loan.book.id}`
         );
-        if (response.statusText === "OK") {
+        if (response.status == 200) {
           setModalShow(false);
           fetchCurrentLoans();
           fetchLoansHistory();
@@ -104,7 +104,7 @@ const LoanOptionsModal = ({
         const response = await axios.put(
           `/api/books/secure/renew/loan?bookId=${loan.book.id}`
         );
-        if (response.statusText === "OK") {
+        if (response.status == 200) {
           setModalShow(false);
           fetchCurrentLoans();
         }

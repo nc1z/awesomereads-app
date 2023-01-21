@@ -61,7 +61,7 @@ const QuestionForm = ({ setKey, fetchMessages }: QuestionFormProps) => {
         `/api/messages/secure/add/message`,
         message
       );
-      if (response.statusText === "OK") {
+      if (response.status == 200) {
         fetchMessages();
         setKey("second");
         setIsSubmitLoading(false);

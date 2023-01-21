@@ -111,7 +111,7 @@ const ActiveQuestionsDisplay = ({
         "/api/messages/secure/admin/message",
         adminReplyMessage
       );
-      if (response.statusText === "OK") {
+      if (response.status == 200) {
         setIsSubmitLoading(false);
         fetchMessages();
       }
