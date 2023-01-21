@@ -111,7 +111,7 @@ const AddNewBookForm = () => {
 
     try {
       const response = await axios.post("/api/admin/secure/add/book", newBook);
-      if (response.statusText === "OK") {
+      if (response.status == 200) {
         setSubmitSuccess(`Success! New book: "${title}" added.`);
         setDefaults();
       }

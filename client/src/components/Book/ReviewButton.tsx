@@ -87,7 +87,7 @@ const ReviewButton = ({
         "/api/reviews/secure",
         reviewRequestModel
       );
-      if (response.statusText == "OK") {
+      if (response.status == 200) {
         setIsReviewSubmitted(true);
       }
     } catch (error: any) {

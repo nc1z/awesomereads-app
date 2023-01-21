@@ -69,7 +69,7 @@ const ManageBooksTable = ({ books, fetchBooks }: ManageBooksTableProps) => {
       const response = await axios.delete(
         `/api/admin/secure/delete/book?bookId=${bookId}`
       );
-      if (response.statusText === "OK") {
+      if (response.status == 200) {
         fetchBooks();
       }
     } catch (error: any) {
