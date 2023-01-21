@@ -73,7 +73,7 @@ Are you an avid reader? AwesomeReads seeks to simulate an online library service
 ### Deploying With
 
 - Client deployment with Netlify
-- Server deployment with AWS
+- Server deployment with AWS (AWS S3, Elastic Beanstalk, EC2, RDS)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -105,7 +105,6 @@ Are you an avid reader? AwesomeReads seeks to simulate an online library service
 
 - Should be able to add new books
 - Should be able to delete books
-- Should be able to update/change quantity & availability of books
 
 See the [open issues](https://github.com/nc1z/awesomereads-app) for a full list of proposed features (and known issues).
 
