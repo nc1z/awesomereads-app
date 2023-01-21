@@ -7,7 +7,7 @@ import com.nc1z.server.utils.ExtractJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:5173/"})
+@CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:5173/", "https://awesomereads.netlify.app/"})
 @RestController
 @RequestMapping("/api/messages")
 public class MessagesController {
