@@ -7,10 +7,10 @@
 <br />
 <div align="center">
 <img src="https://user-images.githubusercontent.com/111836326/211249294-239b2a72-fa63-4384-8429-38e2710efb7e.svg" width="300"/>
-<h2 align="center">AwesomeReads</h2>
+<h2 align="center">awesomereads</h2>
 
   <p align="center">
-    Goodreads Inspired Library Service - Full Stack Reactjs (TypeScript) &amp; Spring Boot with Spring Data REST (Java)
+    Online Book Repository that seeks to simulate a virtual library - Reactjs with Spring Boot (TypeScript/Java)
     <br />
     <a href="https://github.com/nc1z/awesomereads-app"><strong>Explore the docs »</strong></a>
     <br />
@@ -44,7 +44,7 @@
 
 ## About The Project
 
-Are you an avid reader? AwesomeReads seeks to simulate an online library service, packed with functionalities such as viewing books, searching for books, reserving/borrowing books, asking questions to the librarians (admin) and leaving public reviews.
+Are you an avid reader? AwesomeReads seeks to simulate a virtual library, packed with functionalities such as viewing books, searching for books, reserving/borrowing books, asking questions to the librarians (admin) and leaving public reviews.
 
 <img width="1440" alt="AR Login Page" src="https://user-images.githubusercontent.com/111836326/211254710-cf0478b1-beeb-4814-a577-692e7a29f392.png">
 
